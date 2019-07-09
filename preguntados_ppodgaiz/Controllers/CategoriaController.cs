@@ -77,7 +77,16 @@ namespace preguntados_ppodgaiz.Controllers
             return View(model);
         }
 
+        public ActionResult GetCategorias()
+        {
+            var categorias = new Repositorio<Categoria>(db).TraerTodos().ToList()
+             .Select(m => new  {
+                 fillStyle = m.Color,
+                 text = m.Nombre
+             }).ToArray();
 
+            return Json(categorias, JsonRequestBehavior.AllowGet);
+        }
 
 
     }

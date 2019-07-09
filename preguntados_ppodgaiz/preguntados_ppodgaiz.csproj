@@ -286,6 +286,7 @@
     <Compile Include="Models\ViewModels\Categoria\CategoriaAbmViewModel.cs" />
     <Compile Include="Models\ViewModels\Categoria\CategoriaGrillaViewModel.cs" />
     <Compile Include="Models\ViewModels\Categoria\CategoriaServerViewModel.cs" />
+    <Compile Include="Models\ViewModels\Categoria\WheelCategoriesViewModel.cs" />
     <Compile Include="Models\ViewModels\Filtro\SearcherViewModel.cs" />
     <Compile Include="Models\ViewModels\General\EntidadViewModel.cs" />
     <Compile Include="Models\ViewModels\General\SelectBoxItemViewModel.cs" />
@@ -428,6 +429,7 @@
     <Content Include="assets\Binit\js\diagnostico.js" />
     <Content Include="assets\Binit\js\main.js" />
     <Content Include="assets\Binit\js\swal.min.js" />
+    <Content Include="assets\Binit\js\Winwheel.min.js" />
     <Content Include="assets\Binit\node_modules\animate.css\animate.css" />
     <Content Include="assets\Binit\node_modules\animate.css\animate.min.css" />
     <Content Include="assets\Binit\node_modules\animate.css\source\attention_seekers\bounce.css" />
