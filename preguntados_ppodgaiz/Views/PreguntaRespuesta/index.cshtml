@@ -1,0 +1,232 @@
+﻿@model preguntados_ppodgaiz.Models.ViewModels.Filtro.SearcherViewModel
+@{
+    ViewBag.Title = "Listado de Preguntas";
+}
+
+<div class="page-layout carded full-width single-scroll">
+
+    <div class="top-bg bg-deep-purple-100 "></div>
+
+    <!-- CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- HEADER -->
+        <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
+            <!-- APP TITLE -->
+            <div class="col-12 col-sm">
+                <div class="logo row no-gutters justify-content-center align-items-start justify-content-sm-start">
+                    <div class="logo-text">
+                        <div class="h4">Listado de Preguntas</div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-icon">
+                <i class="icon icon-magnify"></i>
+            </button>
+            @*<div class="col-12 search-wrapper px-2">
+                    <div class="input-group col-lg-6">
+                    </div>
+                </div>
+                <span class="input-group-btn">
+
+                </span>*@
+            <!-- / APP TITLE -->
+            <div class="col-auto">
+                <a href="/PreguntaRespuesta/Create" class="btn btn-light">Nueva Pregunta</a>
+            </div>
+
+        </div>
+        <!-- / HEADER -->
+
+        <div class="page-content-card p-10">
+            <!-- Filtros -->
+            <div class="form-row mt-2">
+                <div class="col-md-6 form-group">
+                    <input id="Nombre" name="Nombre" class="form-control" type="text" value="" />
+                    <label for="Name" class="col-form-label">Nombre</label>
+                </div>
+              
+            </div>
+            <div class="form-row mt-2">
+                <div class="col-md-6 form-group" style="z-index:1 !important">
+                    <label for="Name" class="col-form-label">Categorias</label>
+                    <select class="chosen-select" id="CategoriaSeleccionada" name="CategoriaSeleccionada">
+                        <option style="z-index:1" value="@Guid.Empty">-</option>
+                        @foreach (var item in Model.Categorias.CategoriasDisponibles)
+                        {
+                            <option style="z-index:1 !important" @(Model.Categorias.CategoriaSeleccionada != null ? "selected" : "") value="@item.Id">@item.Nombre</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="form-row mt-2" style="text-align:center;z-index:0">
+                <button class="btn btn-primary" id="btnFiltrar">Filtrar</button>
+            </div>
+
+            <table id="cliente-data-table" class="table" style="z-index:0">
+                <thead>
+                    <tr>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Nombre</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Categoria</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Respuestas</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Acciones</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Nombre</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Categoria</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Respuestas</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Acciones</span>
+                            </div>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="~/Content/SweetAlert.Js"></script>
+<script>
+	$(document).ready(function () {
+        function RefrescarClicksDelete() {
+			$('.btnEliminar').off();
+			$('.btnEliminar').on('click', function () {
+				var id = $(this).attr("id");
+                swal({
+                    title: "Esta seguro?",
+                    text: "una vez elimiando no se podra recuperar!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("Delete", "PreguntaRespuesta")',
+                                data: {id},
+                                success: function (data) {
+                                    console.log(id);
+                                    window.location.reload();
+                                }
+                            });
+                            swal("La pregunta ha sido eliminada", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("Pregunta eliminada");
+                        }
+                    });
+			});
+        }
+        $("#btnFiltrar").click(function () {
+            //console.log("sa");
+            var nombre = $("#Nombre").val();
+            var categoria = $("#CategoriaSeleccionada").val();
+            table.ajax.url('@Url.Action("GetData", "PreguntaRespuesta")' + '?Nombre=' + nombre + '&CategoriaSeleccionada=' + categoria).load();
+        });
+		var table = $('#cliente-data-table').DataTable({
+			language: {
+				"sProcessing": "Procesando...",
+				"sLengthMenu": "Mostrar _MENU_ registros",
+				"sZeroRecords": "No se encontraron resultados",
+				"sEmptyTable": "Ningún dato disponible en esta tabla",
+				"sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+				"sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+				"sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+				"sInfoPostFix": "",
+				"sSearch": "Buscar:",
+				"sUrl": "",
+				"sInfoThousands": ",",
+				"sLoadingRecords": "Cargando...",
+				"oPaginate": {
+					"sFirst": "Primero",
+					"sLast": "Último",
+					"sNext": "Siguiente",
+					"sPrevious": "Anterior"
+				},
+				"oAria": {
+					"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+					"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+				}
+			},
+			"searching": false,
+			"processing": true,
+			"serverSide": true,
+			"ajax": '@Url.Action("GetData", "PreguntaRespuesta")',
+			"columns": [
+				{
+					"data": "Nombre",
+					"searchable": true,
+					"orderable":true
+                },
+                {
+                    "data": "CategoriaSeleccionada",
+                    "searchable": true,
+                    "orderable": true
+                },
+				{
+					"searchable": false,
+					"orderable": false,
+					"mRender": function (data, type, row) {
+						var urlRespuestas = '<ul>' ;
+
+						for (var i = 0; i < row.Respuestas.length ;i++)
+						{
+                            var color = row.Respuestas[i].EsCorrecta == true ? "green" : "red";
+                            urlRespuestas += '<li style="color:' + color + ';' + '"' + '>' + row.Respuestas[i].Nombre + '</li>';
+						}
+                        urlRespuestas += '</ul>';
+                        return urlRespuestas;
+					}
+				},
+
+				{
+					"searchable": false,
+					"orderable": false,
+					"mRender": function (data, type, row) {
+						var urlEdit = '@Url.Action("Edit", "PreguntaRespuesta")' + '/';
+						var button = '<a class="btn btn-default" href="' + (urlEdit + row.Id) + '">Editar</a><button class="btn btn-danger btnEliminar" id="' + row.Id + '">Eliminar</button>'
+						return button;
+					}
+				}
+			],
+			"drawCallback": function (settings, json) {
+				console.log('draw!');
+				RefrescarClicksDelete();
+			}
+        });
+
+    })
+</script>

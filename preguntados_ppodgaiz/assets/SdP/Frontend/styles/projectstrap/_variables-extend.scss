@@ -1,0 +1,199 @@
+//
+// Project Variables
+// --------------------------------------------------
+
+// Alerts
+$alert-margin-bottom:					floor(($line-height-computed / 2));	
+$alert-link-font-weight:         	    700 !default;  
+
+
+
+// Badges
+$badge-padding:							3px 7px 5px;
+$badge-font-size:			  		    $font-size-small;
+
+
+
+// Body
+$body-margin:							0;
+
+
+
+// Breadcrumb
+$breadcrumb-font-size:					12px;
+$breadcrumb-font-family:   				"brandon-grotesque",sans-serif;
+
+
+
+// Buttons
+$btn-font-family:						"brandon-grotesque",sans-serif;
+
+$btn-inverse-color:               		#fff !default;
+$btn-inverse-bg:                  	  	$gray-dark;
+$btn-inverse-border:              	  	rgba(0,0,0,0);
+
+$btn-active-box-shadow:				  	none;
+
+$btn-padding:						  	9px 30px 8px;
+$btn-font-size:						  	$font-size-base;
+
+$btn-xs-padding:					  	1px 5px;
+$btn-xs-font-size:					  	$font-size-small - 2;
+
+$btn-sm-padding:					 	6px 16px;
+$btn-sm-font-size:					 	$font-size-small - 2;
+
+$btn-lg-padding:					  	14px 30px;
+$btn-lg-font-size:					  	16px;
+
+
+
+// Button Outlined
+$border-btn-outlined:					1px solid;
+$padding-input:							6px 11px;
+
+
+
+// Button Circle
+$button-circle-height:					60px;
+$button-circle-width:					$button-circle-height;
+$button-circle-xs-height:				20px;
+$button-circle-xs-width:				$button-circle-xs-height;
+$button-circle-sm-height:				40px;
+$button-circle-sm-width:				$button-circle-sm-height;
+$button-circle-lg-height:				80px;
+$button-circle-lg-width:				$button-circle-lg-height;
+
+
+
+// Cards
+$card-width: 							auto;
+$card-box-shadow: 						0 2px 5px 0 rgba(0, 0, 0, 0.26);
+$card-border-radius: 					2px;
+$card-text-color:						#fff;
+$card-background-text-color: 			rgba(0,0,0,0.6);
+
+
+
+// Close
+$close-font-size:						12px;
+$close-color:							#999;
+
+
+
+// Content
+$content-bg:                          	$body-bg !default;
+
+
+
+// Footer
+$footer-height:							180px !default;
+$footer-bg:                         	transparent !default;
+$footer-border:                     	#eee !default;
+
+
+
+// Forms
+$input-box-shadow:						none;	
+$input-border-global:					0;	
+$input-border-bottom:					2px solid $input-border;	
+$label-text-transform:					uppercase;		
+$label-font-family:						"brandon-grotesque",sans-serif;
+
+
+
+// Jumbotron
+$jumbotron-border-radius:				$border-radius-large;
+
+
+
+// Labels
+$label-padding:							.2em .6em .2em;
+$label-font-size: 						75%;
+$label-font-weight:						bold;
+$label-border-radius: 					.25em;
+$label-text-transform:                  uppercase;
+
+// List Group
+$list-group-item-padding:				15px;
+
+
+
+// Media Objects
+$media-object-width:					64px;
+$media-object-height:					$media-object-width;
+
+
+
+// Modals
+$modal-border-radius:					$border-radius-base;
+$modal-content-box-shadow:				0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+$modal-header-border-bottom:			0;
+
+
+
+// Navbar
+$navbar-justify-items:					7;
+$navbar-box-shadow:						none;
+$navbar-border-bottom:					0;
+
+$navbar-animation-top-bg:				$brand-primary;
+
+$navbar-landing-page-before:			$brand-primary;
+$navbar-landing-page-after:				$brand-success;
+
+
+
+// Navs
+$nav-effect-1-color:      				$brand-primary;
+$nav-effect-1-scale3d:      			(1,1,1);
+$nav-effect-1-transition:   			(ease, 0.4s);
+$nav-effect-1-transition-transform: 	0.2s;
+$nav-effect-1-height:       			2px;
+$nav-effect-1-font-size:    			$font-size-base;
+$nav-effect-1-font-family:  			$font-family-base;
+
+
+
+// Panels
+$panel-inverse-text:           			$btn-inverse-color;
+$panel-inverse-border:         			$btn-inverse-bg;
+$panel-inverse-heading-bg:     			$btn-inverse-bg;
+$panel-box-shadow:						none;
+$panel-title-font-size:					ceil(($font-size-base * 1.125));
+
+
+
+// Popover
+$popover-color: 	          			$brand-primary;
+$popover-title-color: 	          		$brand-primary;
+
+
+
+// Reveal
+$reveal-bg:           					$brand-primary;
+$reveal-transition:						all .5s ease .1s;
+
+
+
+// Sidebar
+$sidebar-width:                       	200px !default;
+$sidebar-bg:                          	#f8f8f8 !default;
+$sidebar-default-border:              	darken($navbar-default-bg, 6.5%) !default;
+$sidebar-color:                       	$navbar-default-color !default;
+$sidebar-active-hover-color:          	$text-color !default;
+$sidebar-active-hover-bg:             	#fff !default;
+$sidebar-hover-color:                 	$navbar-default-link-hover-color !default;
+
+
+
+// Sidebar Right
+$sidebar-right-width:                 	360px !default;
+$sidebar-right-bg:                    	#404040 !default;
+$sidebar-right-color:                 	$navbar-default-color !default;
+
+
+
+// Type
+$heading-text-transform:				uppercase !default;
+$heading-letter-spacing:				0.17em !default;

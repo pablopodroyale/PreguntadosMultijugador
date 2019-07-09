@@ -1,0 +1,381 @@
+﻿@model Guid 
+
+<div class="page-layout carded full-width single-scroll">
+    <div class="top-bg bg-deep-purple-100 "></div>
+
+    <!-- CONTENT -->
+    <div class="page-content-wrapper">
+
+        <!-- HEADER -->
+        <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
+
+            <!-- APP TITLE -->
+            <div class="col-12 col-sm">
+
+                <div class="logo row no-gutters justify-content-center align-items-start justify-content-sm-start">
+
+                    <div class="logo-text">
+                        <div class="h4">Editar Pregunta</div>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+        </div>
+        <!-- / HEADER -->
+        <div class="page-content-card p-10">
+            <div class="form-row mt-2">
+                <div class="col-md-6 form-group">
+                    <input id="Nombre" name="Nombre" class="form-control" type="text" />
+                    <label for="Name" class="col-form-label">Nombre</label>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label for="Categoria" class="col-form-label">Categoria</label>
+                    <div id="divSelectCategoria">
+
+                    </div>
+                </div>
+               
+            </div>
+            <div class="form-row mt-2">
+                <div class="col-md-6 form-group" style="z-index:0">
+                    <label for="Name" class="col-form-label">Respuestas</label>
+                    <table id="tableRespuestas" class="table table-bordered table-bordered" style="z-index:0">
+                        <tr>
+                            <th>Respuesta</th>
+                            <th>EsCorrecta</th>
+                            <th>Eliminar</th>
+                            <th>Editar</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt-5 pt-5 pb-5 mb-5 d-flex justify-content-center">
+                <div class="col-6 col-md-3">
+                    <button type="button" class="btn bg-deep-orange text-white btn-block btnGuardarPregunta">Guardar</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <button id="btnNuevaRespuesta" class="btn btn-success" style="z-index:0">Nueva Respuesta</button>
+                </div>
+                <div class="row mt-5 mb-10 d-flex justify-content-center">
+                    <div class="col-6 col-md-3">
+                        <br /><br /><br />
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger" id="errorDivPregunta" style="display:none">
+
+            </div>
+        </div>
+        <div class="modal" id="modalCreateRespuesta" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Crear Respuesta</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Nombre</label>
+                            <input style="max-width: 100%; min-width: 100%;" type="text" id="idNombreModal" class="form-control" />
+                        </div>
+                        <label> Es Correcta </label>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-secondary active" id="idLabelNo">
+                                <input type="radio" name="options" id="idNo" autocomplete="off" checked> No
+                            </label>
+                            <label class="btn btn-secondary" id="idLabelSi">
+                                <input type="radio" name="options" id="idSi" autocomplete="off"> Si
+                            </label>
+                        </div>
+                        <div class="alert alert-danger" id="errorDiv" style="display:none">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary btnGuardarRespuesta">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    @section Scripts{
+    <script>
+        var respuestas = [];
+        var idEditarPregunta = '@Model';
+        var erroresModal = [];
+        var erroresPregunta = [];
+        var idRes = 1;
+        var errorNombre = "El nombre no debe estar vacio";
+        var errorCantRespuestas = "Error, la cantidad de respuestas debe ser 4";
+        var errorCantCorrectas = "Error, la cantidad de respuestas correctas debe ser una";
+        var errorRespuestaIgual = "Error, ya existe una respuesta igual";
+        var respuesta;
+        var resultRespuesta;
+        var esEdit = false;
+        var idEdit;
+        const CANT_RESPUESTAS = 4;
+        const CANT_CORRECTAS = 1;
+
+        $(document).ready(function () {
+            $("#errorDiv").hide();
+                $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetPregunta", "PreguntaRespuesta")',
+                data: {id:idEditarPregunta},
+                success: function (data) {
+                    llenarCampos(data.Nombre, data.CategoriasDisponibles, data.CategoriaSeleccionada, data.Respuestas);
+                },
+            });
+
+            $("#btnNuevaRespuesta").click(function () {
+                $("#errorDiv").hide();
+                esEdit = false;
+                $("#modalCreateRespuesta").modal('show');
+                $(".modal-backdrop").hide();
+                var errorRespuesta = "La respuesta no debe estar vacia";
+            });
+
+            $(".btnGuardarRespuesta").click(function () {
+                erroresModal = [];
+                $(".errorDiv").hide();
+                //si es edit edito el row y edito en la lista
+                //si es crear, creo el row, la espuesta y la agrego a la lista
+                if (esEdit == false) {
+                    if ($("#idNombreModal").val() == null || $("#idNombreModal").val().length == 0) {
+                        erroresModal.push(errorRespuesta);
+                    } else if (!verificarRespuestaIgual($("#idNombreModal").val())){
+                        erroresModal.push(errorRespuestaIgual);
+                    } else {
+                        var respuesta = {
+                            Nombre: $("#idNombreModal").val(),
+                            EsCorrecta: $("#idSi").is(":checked") ? true : false,
+                            IdJs: idRes,
+                            Id: idRes,
+                            Eliminada: false,
+                            Editada: false,
+                            Nueva: true
+                        };
+                        idRes = idRes + 1;
+                        respuestas.push(respuesta);
+                        mostrarRow(respuesta);
+                        $("#modalCreateRespuesta").modal('hide');
+                    }
+                }
+                //Es edit
+                else {
+                    var respuestaAux = getRespuesta(idEdit);
+                    if (respuestaAux != null) {
+                        respuestaAux.Nombre = $("#idNombreModal").val();
+                        respuestaAux.EsCorrecta = $("#idSi").is(":checked") ? true : false;
+                        respuestaAux.Editada = true;
+                        $("#row" + respuestaAux.IdJs).remove();
+                        mostrarRow(respuestaAux);
+                        $("#modalCreateRespuesta").modal('hide');
+                    }
+                }
+                if (erroresModal.length > 0) {
+                    var html = '<ul>';
+                    for (i = 0; i < erroresModal.length; i++) {
+                        html += '<li>' + erroresModal[i] + '</li>'
+                    }
+                    html += '</ul>'
+                    $("#errorDiv").html(html);
+                    $("#errorDiv").fadeIn();
+                }
+                //Borrar valores
+                $("#idNombreModal").val("");
+                //$("#idNo").a("checked", true);
+            });
+
+            });
+
+            function refrescarClicksEditarRespuesta() {
+                var resAux;
+                $(".btnEditarRespuesta").off();
+                $(".btnEditarRespuesta").click(function () {
+                    esEdit = true;
+                    var id = $(this).attr('id');
+                    idEdit = id;
+                    $("#errorDiv").hide();
+                    $("#modalCreateRespuesta").modal('show');
+                    resAux = getRespuesta(id);
+                    $("#idNombreModal").val(resAux.Nombre);
+                    $("input:radio").removeAttr("checked");
+                    $(".btn").removeClass('active');
+                    if (resAux.EsCorrecta) {
+                        $("#idLabelSi").addClass('active');
+                        $("#idSi").attr('checked', 'checked');
+                    } else {
+                        $("#idLabelNo").addClass('active');
+                        $("#idNo").attr('checked', 'checked');
+                    }
+                    $(".modal-backdrop").hide();
+                });
+            }
+            function refrescarClicksEliminarRespuesta() {
+                $(".btnEliminarRespuesta").off();
+                $(".btnEliminarRespuesta").click(function () {
+                    var id = $(this).attr('id');
+                    var resAux = getRespuesta(id);
+                    if (resAux.Nueva) {
+                        respuestas.splice(respuestas.indexOf(resAux), 1);
+                    } else {
+                        respuestas[respuestas.indexOf(resAux)].Eliminada = true;
+                    }
+                    $("#row" + id).remove();
+                });
+            }
+
+            function getRespuesta(id){
+                var index = 0;
+                var aux;
+                var respuestaBuscada = null;
+                while (index < respuestas.length && respuestaBuscada == null ) {
+                    aux = respuestas[index];
+                    if (respuestas[index].Id == id) {
+                        respuestaBuscada = aux
+                    } else {
+                        index++;
+                    }
+                }
+                return respuestaBuscada;
+            }
+
+            function llenarCampos(nombre, CategoriasDisponibles, CategoriaSeleccionada, Respuestas) {
+                $("#Nombre").val(nombre);
+                var resultCategorias = '<select style="z-index:1" class="chosen-select" id="CategoriaSeleccionada" name="CategoriaSeleccionada">';
+                for (var i = 0; i < CategoriasDisponibles.length; i++) {
+                    if (CategoriasDisponibles[i].Id == CategoriaSeleccionada) {
+                        resultCategorias += '<option id="' + CategoriasDisponibles[i].Id  + '"  value="' + CategoriasDisponibles[i].Id + '" selected>' + CategoriasDisponibles[i].Nombre + '</option>'
+                    } else {
+                        resultCategorias += '<option  id="' + CategoriasDisponibles[i].Id + '" value="' + CategoriasDisponibles[i].Id + '">' + CategoriasDisponibles[i].Nombre + '</option>'
+                    }
+                }
+                resultCategorias += '</Select>'
+                $("#divSelectCategoria").html(resultCategorias);
+                $(".chosen-select").chosen({ width: "200px" });
+                for (var i = 0; i < Respuestas.length; i++) {
+                    respuesta = {
+                        Nombre: Respuestas[i].Nombre,
+                        EsCorrecta: Respuestas[i].EsCorrecta,
+                        IdJs: Respuestas[i].Id,
+                        Id: Respuestas[i].Id,
+                        Eliminada: false,
+                        Editada: false,
+                        Nueva :false
+                    }
+                    respuestas.push(respuesta);
+                    mostrarRow(Respuestas[i]);
+                }
+            }
+
+
+            function mostrarRow(respuesta) {
+                resultRespuesta +=
+                    '<tr id="row' + respuesta.Id + '">' +
+                        '<td> ' + respuesta.Nombre +
+                        '</td >' +
+                        '<td> ' + (respuesta.EsCorrecta == true || respuesta.EsCorrecta == true ? "si" : "no " )  +
+                        '</td >' +
+                        '<td> ' +
+                            '<button id="' + respuesta.Id + '"' + 'type="button" class="btn btn-icon fuse-ripple-ready btnEliminarRespuesta" aria- label="Product details" data- toggle="tooltip" data- placement="top" data- original - title="Borrar" >' +
+                                '<i class="icon icon-delete s-6" ></i >' +
+                            '</button > ' +
+                        '</td > ' +
+                        '<td >' +
+                            '<a  id= "' + respuesta.Id + '"' + 'class="btn btn-icon fuse-ripple-ready btnEditarRespuesta" aria- label="Edit" data- toggle="tooltip" data- placement="top" data- original - title="Editar con js" > <i class="icon icon-pencil s-6"></i> </a > ' +
+                        '</td >' +
+                    '</tr > ';
+                $("#tableRespuestas").append(resultRespuesta);
+                resultRespuesta = "";
+                refrescarClicksEliminarRespuesta();
+                refrescarClicksEditarRespuesta();
+            }
+
+            function verificarCantRespuestas() {
+                var cont = 0;
+                for (var i = 0; i < respuestas.length; i++) {
+                    if (!respuestas[i].Eliminada) {
+                        cont = cont + 1;
+                    }
+                }
+                return cont == CANT_RESPUESTAS;
+            }
+
+            function verificarCantCorrectas() {
+                var cont = 0;
+                for (var i = 0; i < respuestas.length; i++) {
+                    if (!respuestas[i].Eliminada && respuestas[i].EsCorrecta == true) {
+                        cont = cont + 1;
+                    }
+                }
+                return cont == CANT_CORRECTAS;
+            }
+
+            function verificarRespuestaIgual(respuesta) {
+                var repetida = false;
+                var index = 0;
+                while (index < respuestas.length && repetida == false) {
+                    if (respuestas[index].Nombre == respuesta) {
+                        repetida = true;
+                    } else {
+                        index++;
+                    }
+                }
+                return repetida == false;
+            }
+
+            $(".btnGuardarPregunta").click(function () {
+                erroresPregunta = [];
+                $("#errorDivPregunta").hide();
+                if (!verificarCantRespuestas()) {
+                    erroresPregunta.push(errorCantRespuestas);
+                }
+                if (!verificarCantCorrectas()) {
+                    erroresPregunta.push(errorCantCorrectas);
+                }
+                if (true) {
+
+                }
+                if (erroresPregunta.length > 0) {
+                    var html = '<ul>';
+                    for (i = 0; i < erroresPregunta.length; i++) {
+                        html += '<li>' + erroresPregunta[i] + '</li>'
+                    }
+                    html += '</ul>'
+                    $("#errorDivPregunta").html(html);
+                    $("#errorDivPregunta").fadeIn();
+                } else {
+                    var pregunta = {
+                        Id: idEditarPregunta,
+                        Nombre: $("#Nombre").val(),
+                        CategoriaSeleccionada: $("#CategoriaSeleccionada").val(),
+                        Respuestas: respuestas
+                    };
+                     $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("Edit", "PreguntaRespuesta")',
+                        data: { model: pregunta },
+                        success: function (data) {
+                            console.log(data);
+                            if (data.Result == "OK") {
+                                window.location.href = '@Url.Action("Index", "PreguntaRespuesta")';
+                            } else {
+                                var html = '<ul>';
+                                for (i = 0; i < data.Error.length; i++) {
+                                    html += '<li>' + data.Error[i] + '</li>'
+                                }
+                                html += '</ul>'
+                                $("#errorDiv").html(html);
+                                $("#errorDiv").fadeIn();
+
+                            }
+
+                        }
+                    });
+                }
+            });
+        </script>
+        }
+
+

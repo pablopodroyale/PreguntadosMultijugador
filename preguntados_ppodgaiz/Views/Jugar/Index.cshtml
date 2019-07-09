@@ -1,0 +1,62 @@
+﻿@model List<preguntados_ppodgaiz.Models.ViewModels.Categoria.CategoriaGrillaViewModel>
+@{
+    ViewBag.Title = "Listado de Categorias";
+}
+
+<div class="page-layout carded full-width single-scroll">
+
+    <div class="top-bg bg-deep-purple-100 "></div>
+
+    <!-- CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- HEADER -->
+        <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
+            <!-- APP TITLE -->
+            <div class="col-12 col-sm">
+                <h4 class="col-md-8 offset-2" >Seleccione una Categoría para comenzar a Jugar</h4>
+            </div>
+
+            <button type="button" class="btn btn-icon">
+                <i class="icon icon-magnify"></i>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <div class="page-content-card p-10" style="/*background-image: url('../../Content/Images/question3.jpg');background-repeat:round;background-attachment: scroll*/; background-position: center; ">
+            <div class="form-row mt-2">
+                <table id="cliente-data-table" class="table" style="z-index:0">
+                    @*<thead>
+                        <tr>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Categoria</span>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>*@
+                 
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="mb-0 mt-0" style="padding-bottom:0">
+                                    <div class="col-md-6 form-group offset-2 mb-0">
+                                        <a href="@Url.Action("Jugar", "Jugar", new { id = item.Id})" class="btn btn-lg btn-block" style="color:antiquewhite;font-color:white;background-color:@item.Color;box-shadow: 10px 5px 5px black;">
+                                            @item.Nombre
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                 
+                </table>
+            </div>
+         </div>
+    </div>
+</div>
+
+<script>
+	$(document).ready(function () {
+        //$('#cliente-data-table').dataTable();
+
+    })
+</script>

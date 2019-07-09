@@ -1,0 +1,41 @@
+.label{
+	padding: $label-padding;
+	font-size: $label-font-size;
+	font-weight: $label-font-weight;
+	border-radius: $label-border-radius;
+    text-transform: $label-text-transform;
+    position: relative;
+    top: -1px;
+	
+	&.label-outlined{
+		background-color: transparent;
+		&.label-default{
+			border: 1px solid $gray-light;
+			color: $gray-light;
+		}
+		&.label-primary{
+			border: 1px solid $brand-primary;
+			color: $brand-primary;
+		}
+		&.label-success{
+			border: 1px solid $brand-success;
+			color: $brand-success;
+		}
+		&.label-warning{
+			border: 1px solid $brand-warning;
+			color: $brand-warning;
+		}
+		&.label-danger{
+			border: 1px solid $brand-danger;
+			color: $brand-danger;
+		}
+		&.label-info{
+			border: 1px solid $brand-info;
+			color: $brand-info;
+		}
+	}
+	&.label-rounded{
+		border-radius: 10em;
+		overflow: hidden;
+	}
+}

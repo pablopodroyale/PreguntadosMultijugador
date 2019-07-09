@@ -1,0 +1,170 @@
+﻿.noAfter {
+    margin-top: 55px;
+    font-size: 40px;
+    text-align: center;
+    position: absolute;
+    font-weight: 300;
+    width: 100%;
+    line-height: 100%;
+    left: 4px;
+    color: #fff;
+}
+
+
+.form-group .select2-container {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 100%;
+    margin-bottom: 0;
+    display: table;
+    table-layout: fixed;
+}
+
+.s-profile > a .sp-pic > img {
+    border: none   
+}
+
+.s-profile > a .sp-info {
+    margin-top: -32px;
+}
+
+.sp-pic {
+text-align:center;}
+
+.s-profile>a {
+    display: block;
+    height: 112px;
+    margin-bottom: 5px;
+    width: 100%;
+    background-size: 54%;
+}
+
+.lg-outer .lg-img-wrap:before, .lg-outer .lg-item:before {
+    display:none !important;
+}
+
+.jscroll-inner{
+    width:100%;
+    position: absolute !important;
+
+}
+.chosen-container {
+    width:100% !important;
+}
+.chosen-container.chosen-container-multi {
+    width:100% !important;
+}
+a.right {
+    float:right;
+}
+.border-right {
+    border-right: 1px solid #eee;
+}
+span.glyphicon-search {
+    padding-left: 10px !important;
+}
+.input-group-addon {
+    padding-left: 0px !important;
+    text-align: left;
+}
+caption, datepicker-days table-condensed th.picker-switch {
+    text-align:center;
+}
+textarea.form-control {
+    padding-top: 10px !important;
+    min-height: 75px;
+}
+.t-center {
+    text-align:center;
+}
+/*#data-table-basic-puntoentrega-header {
+    position:absolute;
+}*/
+.m-sidebar .list-group {
+    height: calc(100% - 0px)!important;
+}
+.m-sidebar {
+        height: calc(100vh - 255px)!important;
+        top: 55px;
+}
+@media (min-width: 768px) {
+
+.mbl-messages {
+    position: absolute;
+    width:100%;
+}
+}@media (min-width: 992px) {
+
+
+.m-body {
+        top: 55px;
+    }
+}
+.mbl-compose {
+    padding: 15px;
+}
+.mbl-messages {
+    padding: 0 10px;
+}
+@media (max-width:767px) {
+    .m-sidebar {
+        width: 100%;
+        border-right: 0px solid #eee;
+    }
+    .m-body {
+        width: 100%;
+        padding-left:0px!important;
+        height: 76%;
+    }
+}
+.input-group {
+    margin-bottom:0px;
+}
+.toggle-switch[data-ts-color=blue] input:not(:disabled):checked + .ts-helper {
+    background:rgba(91, 74, 67, 0.51)!important;
+}
+.nombre-campo {
+    font-size: 11px;
+    color: #959595;
+    font-weight: 400;
+}
+.formulario.fg-line:not([class*=has-]):after {
+    background: inherit!important;
+}
+.t-110 {
+    top: -110px;
+}
+.dropzone {
+    border:0px;
+}
+
+.table > tbody > tr > td:last-child, .table > tbody > tr > th:last-child, .table > tfoot > tr > td:last-child, .table > tfoot > tr > th:last-child, .table > thead > tr > td:last-child, .table > thead > tr > th:last-child {
+    padding-right: 15px !important;
+    min-width: 130px !important;
+}
+.ticket-msj {
+    padding: 10px !important;
+    min-height: 20px !important;
+}
+#mCSB_3 {
+    padding-top:10px;
+}
+.table>tbody>tr:last-child>td, .table>tfoot>tr:last-child>td {
+    padding: 10px 15px;
+    vertical-align: baseline;
+}
+#data-table-basic-articuloPedido-header, #data-table-basic-articuloPedidoDetalle-header {
+    display:none !important;
+}
+img.ticket-thumbnail {
+    max-width: 50px;
+    max-height:50px;
+}
+html:not(.ie9) .select.fg-line:before {
+    z-index: -1;
+}
+
+.btn-float{
+    z-index:5;
+}

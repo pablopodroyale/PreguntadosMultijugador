@@ -1,0 +1,133 @@
+/*--- Estilos generales del Card ---*/
+.card{
+  width: $card-width;
+  box-shadow: $card-box-shadow;
+  border-radius: $card-border-radius;
+  position: relative;
+  overflow: hidden;
+  
+  /*--- Estilos de la imágen de la card ---*/
+  .card-image{
+    height: 100%;
+    width: 100%;
+    img{
+      margin: auto;
+    }
+  }
+  h1, h2, h3, h4, h4, h5, h6, p{
+    margin: 0;
+  }
+
+  /*--- Estilos del texto de la card ---*/
+  .card-text{
+    color: $card-text-color;
+    position: absolute;
+    padding: 24px 15px 14px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    *{
+      color: $card-text-color;
+    }
+    .card-title{
+      margin-bottom: 5px;
+    }
+
+    /*--- Le agrega un fondo al texto ---*/
+    &.background-text{
+      background-color: $card-background-text-color;
+    }
+  }
+  
+
+  &.card-primary, &.card-info, &.card-success, &.card-warning, &.card-danger{
+    .card-block{
+      .card-title, .card-text{
+        color: #fff;
+      }
+    }
+  }  
+  
+  /*--- Color de fondo de la card ---*/
+  &.card-primary{
+    background-color: $brand-primary;
+  }
+  &.card-info{
+    background-color: $brand-info;
+  }
+  &.card-success{
+    background-color: $brand-success;
+  }
+  &.card-warning{
+    background-color: $brand-warning;
+  }
+  &.card-danger{
+    background-color: $brand-danger;
+  }
+
+  /*--- Color de borde de la card ---*/
+
+  &.card-outlined-primary{
+    border: 1px solid $brand-primary;
+  }
+  &.card-outlined-info{
+    border: 1px solid $brand-info;
+  }
+  &.card-outlined-success{
+    border: 1px solid $brand-success;
+  }
+  &.card-outlined-warning{
+    border: 1px solid $brand-warning;
+  }
+  &.card-outlined-danger{
+    border: 1px solid $brand-danger;
+  }
+}
+
+.card{
+  &.card-material{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    height: auto;
+    .card-img-top{
+      border-top-right-radius: calc(.25rem - 1px);
+      border-top-left-radius: calc(.25rem - 1px);
+      max-width: 100%;
+      display: block;
+      height: auto;
+    }
+    .card-img-bottom {
+      border-bottom-right-radius: calc(.25rem - 1px);
+      border-bottom-left-radius: calc(.25rem - 1px);
+      max-width: 100%;
+      display: block;
+      height: auto;
+    }
+    .card-block{
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      padding: 1.25rem;
+      .card-title{
+        margin-bottom: .75rem;
+      }
+    }
+    h1, h2, h3, h4, h4, h5, h6, p{
+      margin: auto;
+    }
+    .card-text{
+      position: static;
+      color: #000;
+      padding: 0;
+      margin-bottom: 1rem;
+    }
+  }
+}

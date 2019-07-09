@@ -1,0 +1,50 @@
+// Dropdowns ==================================================================
+
+.dropdown-menu {
+  border-radius: 0;
+  background-clip: initial;
+  &.columns-2 {
+  	min-width: 400px;
+	}
+	li{
+		a{
+			padding: 3px 20px;
+		}
+	}
+}
+
+.divider {
+  border-top:1px solid #DDD;
+  margin-bottom:16px;
+  margin-top:10px;
+  &.divider-alpha {
+    border-color:rgba(255,255,255,0.2);
+  }
+}
+
+.multi-column-dropdown {
+	list-style: none;
+  margin: 0px;
+  padding: 0px;
+	li{
+		a {
+			display: block;
+			clear: both;
+			line-height: 1.428571429;
+			color: #333;
+			white-space: normal;
+			&:hover {
+				text-decoration: none;
+		    color: #262626;
+		    background-color: #e2e2e2;
+			}
+		}
+	} 
+}
+ 
+@media (max-width: 991px) {
+	.dropdown-menu.multi-column {
+		min-width: 240px !important;
+		overflow-x: hidden;
+	}
+}

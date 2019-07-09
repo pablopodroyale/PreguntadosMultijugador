@@ -1,0 +1,191 @@
+﻿@model List<preguntados_ppodgaiz.Models.ViewModels.Categoria.CategoriaGrillaViewModel>
+@{
+    ViewBag.Title = "Listado de Categorias";
+}
+
+
+<div class="page-layout carded full-width single-scroll">
+
+    <div class="top-bg bg-deep-purple-100 "></div>
+
+    <!-- CONTENT -->
+    <div class="page-content-wrapper">
+
+        <!-- HEADER -->
+        <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
+
+            <!-- APP TITLE -->
+            <div class="col-12 col-sm">
+
+                <div class="logo row no-gutters justify-content-center align-items-start justify-content-sm-start">
+
+                    <div class="logo-text">
+                        <div class="h4">Listado de Categorías</div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- SEARCH -->
+            <div class="col search-wrapper px-2">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-icon">
+                            <i class="icon icon-magnify"></i>
+                        </button>
+                    </span>
+                    <input id="cliente-search-input" type="text" class="form-control" placeholder="Buscar" aria-label="Search" />
+                </div>
+                <!-- / SEARCH -->
+            </div>
+            <!-- / APP TITLE -->
+            <div class="col-auto">
+                <a href="/Categoria/Create" class="btn btn-light">Nueva Categoria</a>
+            </div>
+
+        </div>
+        <!-- / HEADER -->
+
+        <div class="page-content-card p-10">
+            <div class="form-row mt-2">
+                <div class="col-md-6 form-group">
+                    <input id="Nombre" name="Nombre" class="form-control" type="text" value="" />
+                    <label for="Name" class="col-form-label">Nombre</label>
+                </div>
+            </div>
+            <div class="form-row mt-2" style="text-align:center">
+                <button class="btn btn-primary" id="btnFiltrar">Filtrar</button>
+            </div>
+            <table id="myTable" class="table">
+                <thead>
+                    <tr>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Nombre</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Cantidad de Preguntas</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Color</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Acciones</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @(item.Nombre)
+                            </td>
+                            <td>
+                                @(item.CantidadPreguntasAResponder)
+                            </td>
+                            <td>
+                                <div  style="height:10px;width:10px;background:@(item.Color)">
+
+                                </div>
+                              
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Categoria", new { id = item.Id})" class="btn btn-icon fuse-ripple-ready" aria-label="Edit" data-toggle="tooltip" data-placement="top" data-original-title="Editar">
+                                    <i class="icon icon-pencil s-6"></i>
+                                </a>
+
+                                <button type="button" id="@item.Id" class="btn btn-icon fuse-ripple-ready delete-action btnEliminarCategoria" aria-label="Product details" data-toggle="tooltip" data-placement="top" data-original-title="Borrar">
+                                    <i class="icon icon-delete s-6"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function () {
+           
+            $('#myTable').dataTable({
+                "drawCallback": function (settings) {
+                    refrescarClicksEliminarCategoria();
+                }
+            });
+
+            $(".btnEliminarCategoria").click(function () {
+                var id = $(this).attr("id");
+                swal({
+                    title: "Está seguro que desea eliminar?",
+                    text: "una vez eliminado no se podrá recuperar!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                type: "POST",
+                                url: '@Url.Action("Delete", "Categoria")',
+                                data: {estado, id},
+                                success: function (data) {
+                                    console.log(id);
+                                    window.location.href = '@Url.Action("Index", "Categoria")';
+                                },
+                            });
+                            swal("La Categoria ha sido eliminado", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("El actor no se ha eliminado");
+                        }
+                    });
+                });
+        })
+
+        function refrescarClicksEliminarCategoria() {
+                var id = $(this).attr("id");
+                $(".btnEliminarCategoria").off();
+                $(".btnEliminarCategoria").click(function () {
+                swal({
+                    title: "Está seguro que desea eliminar?",
+                    text: "una vez eliminado no se podrá recuperar!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("Delete", "Categoria")',
+                            data: {id},
+                            success: function (data) {
+                                console.log(id);
+                                window.location.href = '@Url.Action("Index", "Categoria")';
+                            },
+                        });
+                        swal("La categoría se ha sido eliminado", {
+                            icon: "success",
+                        });
+                    } else {
+                        swal("La categoría no se eliminó");
+                    }
+                    });
+                });
+            }
+    </script>
+}

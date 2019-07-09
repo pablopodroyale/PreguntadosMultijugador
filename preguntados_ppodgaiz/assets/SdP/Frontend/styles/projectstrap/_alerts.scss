@@ -1,0 +1,85 @@
+// Alerts =====================================================================
+
+.alert {
+    margin-bottom: $alert-margin-bottom;
+    font-family: "brandon-grotesque",sans-serif;
+    font-weight: 400;
+    padding: 12px 15px;
+    /*--- Alert Outlined ---*/
+    &.alert-outlined {
+        &.alert-default {
+            background-color: transparent;
+            border-color: $gray-lighter;
+        }
+
+        &.alert-primary {
+            background-color: transparent;
+            color: $brand-primary;
+            border-color: $brand-primary;
+        }
+
+        &.alert-warning {
+            background-color: transparent;
+            color: $brand-warning;
+            border-color: $brand-warning;
+        }
+
+        &.alert-danger {
+            background-color: transparent;
+            color: $brand-danger;
+            border-color: $brand-danger;
+        }
+
+        &.alert-success {
+            background-color: transparent;
+            color: $brand-success;
+            border-color: $brand-success;
+        }
+
+        &.alert-info {
+            background-color: transparent;
+            color: $brand-info;
+            border-color: $brand-info;
+        }
+
+        &.alert-inverse {
+            background-color: transparent;
+            color: $gray-light;
+            border-color: $gray-light;
+        }
+    }
+
+    &.alert-inverse {
+        background-color: #525252;
+    }
+}
+
+.alert:not(.alert-default){
+  color: #fff;
+  a:not(.close),
+  .alert-link {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .close {
+    color: #fff;
+  }
+}
+
+.alert-default {
+  background-color: $gray-lighter;
+  .alert-link {
+    color: $text-color;
+    text-decoration: underline;
+  }
+}
+
+.close {
+  font-weight: 300;
+  opacity: 0.6;
+  @include transition(all 0.2s);
+
+  &:hover {
+    opacity: 1;
+  }
+}

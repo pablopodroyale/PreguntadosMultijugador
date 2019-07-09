@@ -1,0 +1,53 @@
+// Panels ======================================================================
+
+.panel {
+  @include box-shadow($panel-box-shadow);
+  .panel-heading {
+    border-top-radius: $panel-border-radius;
+    .panel-title{
+      font-size: $panel-title-font-size;
+    }    
+    .label {
+      position: relative;
+      top: -3px;
+    }
+  }
+  .panel-body {
+    .well {
+      margin-bottom: 0px;
+    }
+  }
+  .panel-footer{
+    border-bottom-radius: $panel-border-radius;
+  }
+}
+
+
+.panel-default {
+  .panel-heading {
+    font-weight: 500;
+    font-size: 16px;
+    color: $text-color;
+    a:not(.btn) {
+      color: $text-color;
+      &:hover,
+      &:active,
+      &:focus {
+        color: lighten($text-color, 20%);
+      }
+    }
+  }
+
+  .panel-heading,
+  .comments {
+    i {
+      position: relative;
+      top: 2px;
+      left: -4px;
+    }
+  }
+}
+
+.panel-inverse {
+  @include panel-variant($panel-inverse-border, $panel-inverse-text, $panel-inverse-heading-bg, $panel-inverse-border);
+}

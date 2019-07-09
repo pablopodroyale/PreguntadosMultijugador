@@ -1,0 +1,14 @@
+// MEDIA OBJECTS
+
+/*--- Estilo general del media object ---*/
+.media-object{
+	width: $media-object-width !important;
+	height: $media-object-width !important;
+	overflow: hidden;
+	
+	/*--- Estilos para el media object circle ---*/
+	&.circle{
+		overflow: hidden;
+		border-radius: 50%;
+	}
+}

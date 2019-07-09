@@ -1,0 +1,49 @@
+﻿@model preguntados_ppodgaiz.Models.ViewModels.Usuario.UsuarioABMViewModel
+@{
+    ViewBag.Title = "Crear Usuario";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Create", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nombre, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.NickName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.NickName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-md-6 form-group" style="z-index:1">
+        <label for="Name" class="col-form-label">Roles</label>
+        <select id="RolesSeleccionados" class="chosen-select" name="RolesSeleccionados" multiple>
+            @foreach (var item in Model.RolesDisponibles)
+            {
+                <option value="@item.Text">@item.Text</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Registrar" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

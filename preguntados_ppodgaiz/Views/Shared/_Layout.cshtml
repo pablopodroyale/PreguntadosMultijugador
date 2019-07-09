@@ -1,0 +1,412 @@
+﻿@{
+    string url = HttpContext.Current.Request.Url.AbsolutePath;
+}
+
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Induccion 3 </title>
+    <link rel="shortcut icon" href="~/assets/Binit/images/binit-mini.png" />
+    <!-- Chosen.css -->
+    <link href="~/assets/MaterialDesign/vendors/bower_components/chosen/chosen.css" rel="stylesheet">
+
+
+    <!-- STYLESHEETS -->
+    <style type="text/css">
+        [fuse-cloak],
+        .fuse-cloak {
+            display: none !important;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" hrf="https://cdnjs.cloudflare.com/ajax/libs/jquery-bootgrid/1.3.1/jquery.bootgrid.css" />
+    <!-- Icons.css -->
+    <link type="text/css" rel="stylesheet" href="~/assets/Binit/icons/fuse-icon-font/style.css">
+    <!-- Animate.css -->
+    <link type="text/css" rel="stylesheet" href="~/assets/Binit/node_modules/animate.css/animate.min.css">
+    <link href="~/Content/animation.css" rel="stylesheet" />
+    @*<!-- Sweet Alert.css -->
+        <link href="~/assets/MaterialDesign/vendors/bower_components/sweetalert/dist/sweetalert.css" rel="stylesheet">*@
+
+
+    @*
+        <!-- PNotify -->
+        <link type="text/css" rel="stylesheet" href="~/assets/Binit/node_modules/pnotify/dist/PNotifyBrightTheme.css">
+
+        <!-- Nvd3 - D3 Charts -->
+        <link type="text/css" rel="stylesheet" href="~/assets/Binit/node_modules/nvd3/build/nv.d3.min.css" />
+
+
+    *@
+    <!-- Perfect Scrollbar -->
+    <link type="text/css" rel="stylesheet" href="~/assets/Binit/node_modules/perfect-scrollbar/css/perfect-scrollbar.css" />
+    <!-- Fuse Html -->
+    <link type="text/css" rel="stylesheet" href="~/assets/Binit/fuse-html/fuse-html.min.css" />
+    <!-- Main CSS -->
+    <link type="text/css" rel="stylesheet" href="~/assets/Binit/css/main.css">
+    <link type="text/css" rel="stylesheet" href="~/assets/Binit/css/diagnotico.min.css">
+    <link href="~/assets/dropzone/basic.css" rel="stylesheet" />
+    <link href="~/assets/dropzone/dropzone.css" rel="stylesheet" />
+
+    <!-- / STYLESHEETS -->
+    <!-- JAVASCRIPT -->
+    <!-- jQuery -->
+    <script type="text/javascript" src="~/assets/Binit/node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- Mobile Detect -->
+    <script type="text/javascript" src="~/assets/Binit/node_modules/mobile-detect/mobile-detect.min.js"></script>
+    <!-- Perfect Scrollbar -->
+    <script type="text/javascript" src="~/assets/Binit/node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+    <!-- Popper.js -->
+    <script type="text/javascript" src="~/assets/Binit/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <!-- Chosen.js -->
+    <script src="~/assets/MaterialDesign/vendors/bower_components/chosen/chosen.jquery.js"></script>
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="~/assets/Binit/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Bootgrid.js -->
+    <script src="~/assets/MaterialDesign/vendors/bootgrid/jquery.bootgrid.updated.min.js"></script>
+    <script src="~/assets/Binit/js/diagnostico.js"></script>
+
+    @*
+        <!-- Nvd3 - D3 Charts -->
+        <script type="text/javascript" src="~/assets/Binit/node_modules/d3/d3.min.js"></script>
+        <script type="text/javascript" src="~/assets/Binit/node_modules/nvd3/build/nv.d3.min.js"></script>
+    *@
+    <!-- Data tables -->
+    <script type="text/javascript" src="~/assets/Binit/node_modules/datatables.net/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="~/assets/Binit/node_modules/datatables-responsive/js/dataTables.responsive.js"></script>
+    <script src="~/assets/Binit/js/Winwheel.min.js"></script>
+    @*
+        <!-- PNotify -->
+        <script type="text/javascript" src="~/assets/Binit/node_modules/pnotify/dist/iife/PNotify.js"></script>
+        <script type="text/javascript" src="~/assets/Binit/node_modules/pnotify/dist/iife/PNotifyStyleMaterial.js"></script>
+        <script type="text/javascript" src="~/assets/Binit/node_modules/pnotify/dist/iife/PNotifyButtons.js"></script>
+        <script type="text/javascript" src="~/assets/Binit/node_modules/pnotify/dist/iife/PNotifyCallbacks.js"></script>
+        <script type="text/javascript" src="~/assets/Binit/node_modules/pnotify/dist/iife/PNotifyMobile.js"></script>
+        <script type="text/javascript" src="~/assets/Binit/node_modules/pnotify/dist/iife/PNotifyHistory.js"></script>
+        <script type="text/javascript" src="~/assets/Binit/node_modules/pnotify/dist/iife/PNotifyDesktop.js"></script>
+        <script type="text/javascript" src="~/assets/Binit/node_modules/pnotify/dist/iife/PNotifyConfirm.js"></script>
+        <script type="text/javascript" src="~/assets/Binit/node_modules/pnotify/dist/iife/PNotifyReference.js"></script>
+    *@
+
+    <script src="~/assets/Binit/js/swal.min.js"></script>
+    <!-- Sweet Alert
+    <script src="~/assets/MaterialDesign/vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>-->
+    <!-- Fuse Html -->
+    <script type="text/javascript" src="~/assets/Binit/fuse-html/fuse-html.min.js"></script>
+    <!-- Main JS -->
+    <script type="text/javascript" src="~/assets/Binit/js/main.js"></script>
+    <!-- / JAVASCRIPT -->
+    <script src="~/assets/dropzone/dropzone.js"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-135266110-1');
+    </script>
+
+</head>
+<body class="layout layout-vertical layout-left-navigation layout-below-toolbar layout-below-footer">
+    <!-- End Google Tag Manager -->
+
+    <main>
+        <div id="wrapper">
+            <aside id="aside" class="aside aside-left" data-fuse-bar="aside" data-fuse-bar-media-step="md" data-fuse-bar-position="left">
+                <div class="aside-content bg-primary text-auto">
+
+                    <div class="aside-toolbar">
+
+                        <div class="logo">
+                            <span class="to-show"><img class="logo-sidebar-reducido logo-icon" src="~/assets/Binit/images/logos/icon.jpg" /></span>
+
+                            <span class="logo-text" title="PLUMA"><img title="PLUMA" class="img-responsive logo-sidebar" src="~/assets/Binit/images/logos/logo.png" /></span>
+
+                        </div>
+
+                        <button id="toggle-fold-aside-button" type="button" class="btn btn-icon d-none d-lg-block" data-fuse-aside-toggle-fold>
+                            <i class="icon icon-backburger"></i>
+                        </button>
+
+                    </div>
+                    <ul class="nav flex-column custom-scrollbar" id="sidenav" data-children=".nav-item">
+
+                        <li class="subheader">
+                            <span>Index</span>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link ripple @(url.Equals("/Home/Index") ? "active" : "")" href="/Home/Index">
+                                <i class="icon s-4 icon-home"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link ripple @(url.Equals("/Categoria/Index") ? "active" : "")" href="/Categoria/Index">
+                                <i class="icon s-4 icon-monitor"></i>
+                                <span>Categorias</span>
+                            </a>
+                        </li>
+                        @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link ripple @(url.Equals("/Account/Index") ? "active" : "")" href="/Account/Index">
+                                    <i class="icon s-4 icon-account-edit"></i>
+                                    <span>Usuarios</span>
+                                </a>
+                            </li>
+                        }
+                         @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link ripple @(url.Equals("/PreguntaRespuesta/Index") ? "active" : "")" href="/PreguntaRespuesta/Index">
+                                    <i class="icon s-4 icon-network-question"></i>
+                                    <span>Preguntas y Respuestas</span>
+                                </a>
+                            </li>
+                        }
+                        @if (Request.IsAuthenticated && User.IsInRole("Administrador"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link ripple @(url.Equals("/Api/CreateApiAsync") ? "active" : "")" href="/Api/CreateApiAsync">
+                                    <i class="icon s-4 icon-network-question"></i>
+                                    <span>Cargar Categorias y Preguntas</span>
+                                </a>
+                            </li>
+                        }
+                        @if (Request.IsAuthenticated && !User.IsInRole("Administrador"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link ripple @(url.Equals("/Jugar/Index") ? "active" : "")" href="/Jugar/Index">
+                                    <i class="icon s-4 icon-ninja"></i>
+                                    <span>Jugar</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </aside>
+
+            <div class="content-wrapper">
+                <nav id="toolbar" class="bg-white">
+
+                    <div class="row no-gutters align-items-center flex-nowrap">
+
+                        <div class="col">
+
+                            <div class="row no-gutters align-items-center flex-nowrap">
+
+                                <button type="button" class="toggle-aside-button btn btn-icon d-block d-lg-none" data-fuse-bar-toggle="aside">
+                                    <i class="icon icon-menu"></i>
+                                </button>
+                                <div class="toolbar-separator d-block d-lg-none"></div>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="row no-gutters align-items-center justify-content-end">
+                                <div class="user-menu-button dropdown">
+                                    <div class="dropdown-toggle ripple row align-items-center no-gutters px-2 px-sm-4" role="button" id="dropdownUserMenu" data-toggle="dropdown"
+                                         aria-haspopup="true" aria-expanded="false">
+                                        <div class="avatar-wrapper">
+                                            <img class="avatar" src="~/assets/Binit/images/logos/icon.jpg">
+                                            <i class="status text-green icon-checkbox-marked-circle s-4"></i>
+                                        </div>
+                                        <span class="username mx-3 d-none d-md-block"> @(User.Identity.IsAuthenticated ? User.Identity.Name : "")</span>
+                                    </div>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownUserMenu">
+                                        <a class="dropdown-item" href="/Account/ChangePassword">
+                                            <div class="row no-gutters align-items-center flex-nowrap">
+                                                <i class="icon-key-variant"></i>
+                                                <span class="px-3">Cambiar Contraseña</span>
+                                            </div>
+                                        </a>
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @id = "logOut", @hidden = "hidden" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <a href="javascript:;" onclick="parentNode.submit();"><i class="zmdi zmdi-time-restore"></i> Logout</a>
+                                            @*<button type="submit"><i class="zmdi zmdi-time-restore"></i> Logout</button>*@
+                                        }
+                                        <a class="dropdown-item" href="javascript:;" onclick="document.getElementById('logOut').submit()">
+                                            <div class="row no-gutters align-items-center flex-nowrap">
+                                                <i class="icon-logout"></i>
+                                                <span class="px-3">Cerrar Sesión</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="toolbar-separator"></div>
+                                <div class="toolbar-separator"></div>
+                                <button type="button" id="btnMensaje" class="quick-panel-button btn btn-icon avatar-wrapper" data-fuse-bar-toggle="quick-panel-sidebar">
+                                    <i class="icon icon-hangouts s-9 text-green-300"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <div class="content custom-scrollbar">
+                    @RenderBody()
+                    @*
+                        <div id="project-dashboard" class="page-layout simple right-sidebar">
+                            <div class="page-content-wrapper custom-scrollbar">
+                            </div>
+                        </div>
+                    *@
+                </div>
+            </div>
+            <di v class="quick-panel-sidebar custom-scrollbar" fuse-cloak data-fuse-bar="quick-panel-sidebar" data-fuse-bar-position="right">
+                <div class="list-group date">
+                    <div class="list-group-item subheader">@DateTime.Now.ToShortDateString()</div>
+                    <div class="list-group-item two-line">
+                        <div class="text-muted">
+                            <div class="h1"> Mensajes</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider">
+                </div>
+                <div id="imprimirMensajesLayout" class="list-group">
+                    @*<div class="list-group-item two-line">
+
+                                        <div class="list-item-content">
+                            <a href="@Url.Action("Edit","Account", new { id=user.Item2 })" class="link-card-mensajes">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h3><span class="badge badge-info"> Normal</span><br /> @user.Item1</h3>
+                                        <p>Debe asignar Roles al usuario</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        </div>*@
+                    @*<div class="list-group-item two-line">
+
+                            <div class="list-item-content">
+                                <a href="#" class="link-card-mensajes">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h3><span class="badge badge-info"> Normal</span><br /> Best songs to listen while working</h3>
+                                            <p>Last edit: May 8th, 2015</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="list-group-item two-line">
+                            <div class="list-item-content">
+                                <a href="#" class="link-card-mensajes">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h3><span class="badge badge-warning text-white"> Importante</span><br /> Best songs to listen while working</h3>
+                                            <p>Last edit: May 8th, 2015</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="list-group-item two-line">
+
+                            <div class="list-item-content">
+                                <a href="#" class="link-card-mensajes">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h3><span class="badge badge-danger"> Urgente</span><br /> Best songs to listen while working</h3>
+                                            <p>Last edit: May 8th, 2015</p>
+                                        </div>
+                                    </div>
+                                </a>
+
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+
+<script>
+    $(document).ready(function () {
+
+        $(".chosen-select").chosen({ width: "95%" });
+
+        let foldedActive = false;
+        let open = true;
+
+        $('.to-show').hide();
+        function checkFolded() {
+            if ($('body').hasClass('fuse-aside-folded')) {
+
+                $('.to-hide').hide();
+                $('.to-show').fideIn();
+
+            } else if ($('body').hasClass('fuse-aside-expanded')) {
+
+                $('.to-hide').show();
+                $('.to-show').fideOut();
+            }
+        }
+        function checkFoldedTwo() {
+            if (open) {
+                $('.to-hide').show();
+                $('.to-show').fadeOut();
+            } else {
+                $('.to-hide').hide();
+                $('.to-show').fadeIn();
+            }
+        }
+
+        $('#toggle-fold-aside-button').click(function () {
+            foldedActive = !foldedActive;
+            checkFolded();
+        })
+
+        $('#aside').mouseenter(function () {
+
+            if (foldedActive) {
+                open = !open
+                checkFoldedTwo();
+            }
+
+        })
+
+        $('#aside').mouseleave(function () {
+            if (foldedActive) {
+                open = !open
+                checkFoldedTwo();
+            }
+
+        })
+
+        function traerDataMensajes() {
+            //$.ajax({
+            //    dataType: 'json',
+            //    type: 'get',
+            //    url: '/Mensaje/TraerMensajesUsuario',
+            //    success: function (mensajes) {
+            //        $('.eliminar').remove();
+            //        for (var i = 0; i < mensajes.length; i++) {
+            //            $('#imprimirMensajesLayout').append(
+            //                '<div class="eliminar list-group-item two-line"> <div class="list-item-content"> <a class="link-card-mensajes"> <div class="card"> <div class="card-body"> <p><strong> ' + mensajes[i].Emisor + ' </strong>&nbsp;&nbsp; ' + mensajes[i].FechaEmision + ' </p> <p style="font-size:20px; font-weight:bold"> ' + mensajes[i].Titulo + ' </p> <p style="font-size:15px"> ' + mensajes[i].Contenido + ' </p> </div > </div > </a > </div > </div > ');
+            //        }
+
+            //    },
+            //    error: function (error) {
+            //        swal("¡Error!", "No pudo cargar el elemento.", "error");
+            //    }
+            //});
+        }
+
+        $('#btnMensaje').click(function () {
+            traerDataMensajes();
+        });
+    });
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135266110-1"></script>
+
+
+@RenderSection("scripts", false)

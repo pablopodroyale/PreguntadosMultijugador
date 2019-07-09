@@ -1,0 +1,14 @@
+//
+// Breadcrumbs
+// --------------------------------------------------
+
+.breadcrumb {
+	font-family: $breadcrumb-font-family; 
+  > li {
+    font-size: $breadcrumb-font-size;
+    > a{
+    	color: $breadcrumb-color;
+    	text-transform: uppercase;
+    }
+  }
+}

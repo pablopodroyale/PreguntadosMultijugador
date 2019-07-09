@@ -1,0 +1,709 @@
+// Navbar Toggles =====================================================================
+
+.navbar {
+  .sidebar-toggle {
+    float: left;
+    background-color: darken($navbar-inverse-bg, 10%);
+    color: $gray-light;
+    height: $navbar-height;
+    width: $navbar-height;
+    text-align: center;
+    padding-top: 12px; //subject to icon used
+    i {
+      font-size: 24px;
+    }
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: lighten($navbar-inverse-bg, 10%);
+    }
+  }
+}
+
+// Navbar =====================================================================
+
+.navbar {
+  box-shadow: $navbar-box-shadow;
+  border: 0;
+  border-bottom: $navbar-border-bottom;
+
+  &.navbar-inverse {
+    .navbar-form {
+      input[type=text],
+      input[type=password] {
+        color: #fff;
+        background-color: darken($navbar-inverse-bg, 10%);
+        border-color: lighten($navbar-inverse-bg, 20%);
+        &:focus {
+          border-color: $brand-primary;
+        }
+      }
+      .btn-inverse {
+        background-color: darken($navbar-inverse-bg, 10%);
+        border-color: lighten($navbar-inverse-bg, 20%);
+        border-left: 0;
+        padding: 6px 10px;
+        &:hover {
+          background-color: lighten($navbar-inverse-bg, 3%);
+        }
+      }
+    }
+  }
+
+  .navbar-form {
+    .btn {
+      margin-top: 0;
+      height: 34px;
+    }
+    i {
+      font-size: 1.4em;
+    }
+    .input-group {
+      margin-top: 0;
+    }
+  }
+
+  &:not(.navbar-fixed-top) {
+    .navbar-right {
+      li {
+        &:last-child {
+          .navbar-form {
+            padding-right: 0px;
+            margin-right: -5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.navbar-nav {
+  > li {
+    > .dropdown-menu {
+      border-radius: 0;
+    }
+    > a{
+      font-size: $font-size-base + 2;
+    }
+  }
+}
+
+/*--- Estilos para el navbar toggle y las barras del ícono al hacer click ---*/
+.navbar-toggle {
+  margin-right: 5px;
+  .icon-bar{
+    transition: all 0.4s ease-in-out;
+  }
+  &:not(.collapsed){
+    .icon-bar{            
+      &:nth-child(2){
+        transform: rotate(-45deg);
+        position: relative;
+        top: 4px;
+        transition: all 0.4s ease-in-out;
+      }
+      &:nth-child(3){
+        background-color: transparent;
+      }
+      &:last-child{
+        transform: rotate(45deg);
+        position: relative;
+        top: -7px;
+        transition: all 0.4s ease-in-out;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 767px) {
+  .navbar {
+    .navbar-brand {
+      width: calc(100% - 100px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+
+// NAVBAR-ANIMATION-TOP=================================================================
+/*--- Estilos para el navbar animation top al scrollear ---*/
+.navbar-animation-top{
+  transition: all 0.5s ease-in-out;
+  &.scroll{
+    background-color: $navbar-animation-top-bg;
+  }
+}
+
+// NAVBAR-LANDING-PAGE=================================================================
+.navbar{
+  &.navbar-landing-page{
+    ul{
+      li{
+        a{
+          &:before, &:after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            -webkit-transform: scale3d(0, 1, 1);
+            transform: scale3d(0, 1, 1);
+            -webkit-transform-origin: center left;
+            transform-origin: center left;
+            -webkit-transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+            transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+          }
+          &:before{
+            background: $navbar-landing-page-before;
+            -webkit-transition-delay: 0.4s;
+            transition-delay: 0.4s;
+          }
+          &:after{
+            background: $navbar-landing-page-after;
+          }
+        }
+        &.active{
+          a{
+            &:before, &:after{
+              -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+// NAVBAR-JUSTIFY=================================================================
+
+.navbar{
+  &.navbar-justify{
+    .navbar-nav{
+      width: 100%;
+      li {
+        width: calc(100% / #{$navbar-justify-items});
+        @media(max-width: 767px){
+          width: 100%;
+        }
+      }
+      .dropdown-menu{
+        li{
+          width: 100%;
+        }
+      }
+    }
+    .collapse{
+      padding: 0;
+    }
+  }
+}
+
+// NAVBAR-IS-STICKY
+// =================================================================
+
+/*.navbar{
+  &.navbar-sticky-animated{
+    position: static;
+    top: 0;
+    left: 0;
+    width: 100%;
+    -webkit-transition: top 500ms ease;
+    -moz-transition: top 500ms ease;
+    -o-transition: top 500ms ease;
+    transition: top 500ms ease;
+
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+.scrollActive{
+  .navbar-sticky-animated{
+    position: fixed;
+    z-index: 9999;
+  }
+}*/
+
+// NAVBAR-MATERIAL
+// =================================================================
+
+.navbar{
+  &.navbar-material{
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+  }
+}
+
+.navbar-material{
+    box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px, rgba(0, 0, 0, 0.117647) 0px 1px 4px;
+  }
+
+
+// NAVBAR ANIMATED LINKS
+// =================================================================
+
+$navbar-effect-1-color:      $brand-primary;
+$navbar-effect-1-scale3d:      (1,1,1);
+$navbar-effect-1-transition:   (ease, 0.4s);
+$navbar-effect-1-transition-transform: 0.2s;
+$navbar-effect-1-height:       2px;
+$navbar-effect-1-font-size:    $font-size-base;
+$navbar-effect-1-font-family:  $font-family-base;
+
+
+@mixin scale3d($ratio...) {
+  -webkit-transform: scale3d($ratio);
+     -moz-transform: scale3d($ratio);
+      -ms-transform: scale3d($ratio); 
+       -o-transform: scale3d($ratio);
+          transform: scale3d($ratio);
+}
+
+.effect-1{
+  &.navbar{
+    .navbar-nav {
+      > li {
+        border-bottom: 0;
+        @include transition($navbar-effect-1-transition);
+
+        > a {
+          border-bottom: 0;
+          border-radius: 0;
+          font-size: $navbar-effect-1-font-size;
+
+          &:focus{
+            outline: 0;
+            background-color: transparent;
+          }
+
+          &:after, &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: $navbar-effect-1-height;
+            background: $brand-primary;
+            @include scale3d(0,1,1);
+            @include transition-transform($navbar-effect-1-transition-transform);
+          }
+
+          &:after{
+            bottom: 0;
+          }     
+
+          &:before{
+            top: 0;
+          }     
+            
+        }
+
+        &:hover{
+          > a {
+            &:after, &:before {
+              color: $navbar-effect-1-color;
+              @include scale3d($navbar-effect-1-scale3d);
+            } 
+          }
+        }
+      }      
+    } 
+    border-bottom: 0;
+
+  }
+}
+
+
+.effect-1a{
+  &.navbar{
+    .navbar-nav {
+      > li {
+        > a {
+          &:after{
+            @include transform-origin(100% 50%);
+          }
+          &:before{
+            @include transform-origin(0 50%);
+          }
+        }
+      }     
+    } 
+  }
+}
+
+.effect-1b{
+  &.navbar{
+    .navbar-nav {
+      > li {
+        > a {
+          &:after{
+            @include transform-origin(50%);
+          }
+          &:before{
+            display: none;
+          }
+        }
+      }     
+    } 
+  }
+}
+
+
+.effect-1c{
+  &.navbar{
+    .navbar-nav {
+      > li {
+        > a {
+          &:after{
+            @include transform-origin(0 50%);
+          }
+          &:before{
+            display: none;
+          }
+        }
+      }     
+    } 
+  }
+}
+
+.effect-1d{
+  &.navbar{
+    .navbar-nav {
+      > li {
+        > a {
+          &:after{
+            @include transform-origin(0 50%);
+            width: 90%;
+            bottom: 47%;
+            left: 10%;
+          }
+          &:before{
+            display: none;
+          }
+        }
+      }     
+    } 
+  }
+}
+
+.effect-2, .effect-2a{
+  &.navbar{
+    border-bottom: 0;
+    .navbar-nav{
+      > li {
+        border-bottom: 0;
+        @include transition($navbar-effect-1-transition);
+
+        > a {
+          border: 0;
+          border-radius: 0;
+          font-size: $navbar-effect-1-font-size;
+          background-color: transparent;
+
+          &:focus{
+            outline: 0;
+            background-color: transparent;
+          }
+
+          &:after, &:before {
+            content: '';
+            position: absolute;
+            background: $brand-primary;
+            -webkit-transition: -webkit-transform 0.2s;
+            transition: transform 0.2s;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            -webkit-transform: scale3d(0, 1, 1);
+            transform: scale3d(0, 1, 1);
+          }  
+
+          &:after{
+            bottom: 0;
+            -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+          }
+          &:before{
+            top: 0;
+            -webkit-transform-origin: 0 50%;
+            transform-origin: 0 50%;
+          }        
+        }
+
+        &:after, &:before {
+          content: '';
+          position: absolute;
+          background: $brand-primary;
+          -webkit-transition: -webkit-transform 0.2s;
+          transition: transform 0.2s;
+          top: 0;
+          width: 2px;
+          height: 100%;
+          -webkit-transform: scale3d(1, 0, 1);
+          transform: scale3d(1, 0, 1);
+        }
+
+        &:after{
+          right: 0;
+          -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+        }
+        &:before{
+          left: 0;
+          -webkit-transform-origin: 50% 100%;
+          transform-origin: 50% 100%;
+        } 
+        
+
+        &:hover{
+          &:after, &:before {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+            -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+          } 
+          > a {
+            &:after, &:before {
+              -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+              -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+              transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+              -webkit-transition-duration: 0.4s;
+              transition-duration: 0.4s;
+            } 
+          }
+        }
+        &.active{
+          > a{
+            background-color: transparent;
+          }
+        }
+      }    
+    }
+  }
+}  
+
+.effect-2{
+  &.effect-2a{
+    &.navbar{
+      .navbar-nav{
+        > li{
+          &:after, &:before {
+            width: 4px;
+          }
+          > a{
+            &:after, &:before {
+              height: 4px;
+            }
+          }
+
+          &:hover{
+            &:after{
+              -webkit-transition-delay: 0s;
+              transition-delay: 0s;
+            }
+            > a {
+              &:after, &:before {
+                -webkit-transition-delay: 0.2s;
+                transition-delay: 0.2s;
+              } 
+            }
+          }
+        }
+        
+      }
+    }
+  }
+}
+
+.effect-2{
+  &.effect-2b{
+    &.navbar{
+      .navbar-nav{
+        border-bottom: 0;
+
+        > li {
+          border-bottom: 0;
+          @include transition($navbar-effect-1-transition);
+
+          > a {
+            border: 0;
+            border-radius: 0;
+            font-size: $navbar-effect-1-font-size;
+            background-color: transparent;
+
+            &:focus{
+              outline: 0;
+              background-color: transparent;
+            }
+
+            &:after, &:before {
+              content: '';
+              position: absolute;
+              background: $brand-primary;
+              -webkit-transition: -webkit-transform 0.2s;
+              transition: transform 0.2s;
+              -webkit-transition-timing-function: cubic-bezier(1, 0.68, 0.16, 0.9);
+              transition-timing-function: cubic-bezier(1, 0.68, 0.16, 0.9);
+              left: 0;
+              width: 100%;
+              height: 2px;
+              -webkit-transform: scale3d(0, 1, 1);
+              transform: scale3d(0, 1, 1);
+            }  
+
+            &:after{
+              bottom: 0;
+              -webkit-transform-origin: 100% 50%;
+              transform-origin: 100% 50%;
+              -webkit-transition-delay: 0.3s;
+              transition-delay: 0.3s;
+            }
+            &:before{
+              top: 0;
+              -webkit-transform-origin: 0 50%;
+              transform-origin: 0 50%;
+               -webkit-transition-delay: 0.1s;
+              transition-delay: 0.1s;
+            }        
+          }
+
+          &:after, &:before {
+            content: '';
+            position: absolute;
+            background: $brand-primary;
+            -webkit-transition: -webkit-transform 0.2s;
+            transition: transform 0.2s;
+            -webkit-transition-timing-function: cubic-bezier(1, 0.68, 0.16, 0.9);
+            transition-timing-function: cubic-bezier(1, 0.68, 0.16, 0.9);
+            top: 0;
+            width: 2px;
+            height: 100%;
+            -webkit-transform: scale3d(1, 0, 1);
+            transform: scale3d(1, 0, 1);
+          }
+
+          &:after{
+            right: 0;
+            -webkit-transform-origin: 50% 0;
+            transform-origin: 50% 0;
+          }
+          &:before{
+            left: 0;
+            -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+          } 
+          
+
+          &:hover{
+            &:after, &:before {
+              -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+            }
+            &:before{
+              -webkit-transition-delay: 0.1s;
+              transition-delay: 0.1s;
+            }
+            &:after{
+              -webkit-transition-delay: 0.3s;
+              transition-delay: 0.3s;
+            } 
+            > a {
+              &:after, &:before {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+              } 
+              &:before{
+                -webkit-transition-delay: 0.2s;
+                transition-delay: 0.2s;
+              }
+              &:after{
+                -webkit-transition-delay: 0s;
+                transition-delay: 0s;
+              }
+            }
+          }
+        }
+      }        
+    }
+  }
+}
+
+.effect-2{
+  &.effect-2c{
+    &.navbar{
+      .navbar-nav{
+        border-bottom: 0;
+        > li {
+          border-bottom: 0;
+          @include transition($navbar-effect-1-transition);
+
+          > a {
+            border: 0;
+            border-radius: 0;
+            font-size: $navbar-effect-1-font-size;
+            background-color: transparent;
+
+            &:focus{
+              outline: 0;
+              background-color: transparent;
+            }
+
+            &:after, &:before {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: transparent;
+              border: 2px solid $brand-primary;
+              -webkit-transition: -webkit-transform 0.2s;
+              transition: transform 0.2s;
+            }  
+
+            &:after{
+              border-width: 2px 0;
+              -webkit-transform: scale3d(0, 1, 1);
+              transform: scale3d(0, 1, 1);
+              -webkit-transform-origin: 0% 0%;
+              transform-origin: 0% 0%;
+              -webkit-transition-delay: 0.2s;
+              transition-delay: 0.2s;
+            }
+            &:before{
+              border-width: 0 2px;
+              -webkit-transform: scale3d(1, 0, 1);
+              transform: scale3d(1, 0, 1);
+              -webkit-transform-origin: 0% 50%;
+              transform-origin: 0% 50%;
+            }        
+          }
+
+          &:hover{
+            &:after, &:before {
+              -webkit-transform: scale3d(0, 0, 0);
+              transform: scale3d(0, 0, 0);
+            }
+            > a{
+              &:before, &:after{
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+              }
+            }
+          }
+        }  
+      }        
+    }
+  }
+}  

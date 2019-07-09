@@ -1,0 +1,110 @@
+/*--- Estilos para el carousel fade ---*/
+
+.carousel-fade .carousel-inner .item {
+  opacity: 0;
+  transition-property: opacity;
+}
+
+.carousel-fade .carousel-inner .active {
+  opacity: 1;
+}
+
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+
+.carousel-fade .carousel-control {
+  z-index: 2;
+}
+
+@media all and (transform-3d), (-webkit-transform-3d) {
+  .carousel-fade .carousel-inner > .item.next,
+  .carousel-fade .carousel-inner > .item.active.right {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  .carousel-fade .carousel-inner > .item.prev,
+  .carousel-fade .carousel-inner > .item.active.left {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  .carousel-fade .carousel-inner > .item.next.left,
+  .carousel-fade .carousel-inner > .item.prev.right,
+  .carousel-fade .carousel-inner > .item.active {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+
+
+/*--- Estilos para el carousel Background ---*/
+$carousel-background-height: 500px;
+$carousel-background-color: #fff;
+
+.carousel{
+  &.carousel-background{
+    .carousel-inner{
+      .item{
+        .slide-1, .slide-2, .slide-3{
+          display: table;
+          width: 100%;
+          height: $carousel-background-height;
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          color: $carousel-background-color;
+          h1, h2, h3, h4, h5, h6{
+            color: $carousel-background-color;
+            margin-top: 0;
+          }
+        }
+        .slide-1{
+          background-image: url('https://ununsplash.imgix.net/photo-1416339134316-0e91dc9ded92?q=75&fm=jpg&s=883a422e10fc4149893984019f63c818');
+        }  
+        .slide-2{
+          background-image: url(https://ununsplash.imgix.net/photo-1416339684178-3a239570f315?q=75&fm=jpg&s=c39d9a3bf66d6566b9608a9f1f3765af);
+        }
+        .slide-3{
+          background-image: url('https://ununsplash.imgix.net/photo-1416339276121-ba1dfa199912?q=75&fm=jpg&s=9bf9f2ef5be5cb5eee5255e7765cb327');
+        }
+        .slide-text{
+          display: table-cell;
+          text-align: center;
+          vertical-align: middle;
+          padding-left: $carousel-control-width;
+          padding-right: $carousel-control-width;
+        }
+      }
+    }
+
+    &.carousel-background-animation{
+      .carousel-inner{
+        .item{
+          .slide-text{
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.6s ease-in;
+          }
+          &.active{
+            .slide-text{
+              transform: translateY(0);
+              opacity: 1;
+              transition: all 0.6s ease-out;
+            }
+          }          
+        }
+      }
+    }
+  }
+}

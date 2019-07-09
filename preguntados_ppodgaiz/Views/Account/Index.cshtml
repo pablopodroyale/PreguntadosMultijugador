@@ -1,0 +1,234 @@
+﻿
+@{
+    ViewBag.Title = "Listado de Usuarios";
+}
+
+<div class="page-layout carded full-width single-scroll">
+
+    <div class="top-bg bg-deep-purple-100 "></div>
+
+    <!-- CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- HEADER -->
+        <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
+            <!-- APP TITLE -->
+            <div class="col-12 col-sm">
+                <div class="logo row no-gutters justify-content-center align-items-start justify-content-sm-start">
+                    <div class="logo-text">
+                        <div class="h4">Listado de Usuarios</div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-icon">
+                <i class="icon icon-magnify"></i>
+            </button>
+            <div class="col-auto">
+                <a href="/Account/Create" class="btn btn-light">Nuevo Usuario</a>
+            </div>
+        </div>
+        <!-- / HEADER -->
+
+        <div class="page-content-card p-10">
+            <!-- Filtros -->
+            <div class="form-row mt-2">
+                <div class="col-md-4 form-group">
+                    <input id="Nombre" name="Nombre" class="form-control" type="text" value="" />
+                    <label for="Name" class="col-form-label">Nombre</label>
+                </div>
+                <div class="col-md-4 form-group">
+                    <input id="NickName" name="NickName" class="form-control" type="text" value="" />
+                    <label for="NickName" class="col-form-label">NickName</label>
+                </div>
+                <div class="col-md-4 form-group">
+                    <input id="EMail" name="EMail" class="form-control" type="text" value="" />
+                    <label for="EMail" class="col-form-label">Email</label>
+                </div>
+            </div>
+            <div class="form-row mt-2" style="text-align:center;z-index:0">
+                <button class="btn btn-primary" id="btnFiltrar">Filtrar</button>
+            </div>
+
+            <table id="cliente-data-table" class="table" style="z-index:0">
+                <thead>
+                    <tr>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Nombre</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">NickName</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Email</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Rol</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Acciones</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Nombre</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">NickName</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Email</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Rol</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Acciones</span>
+                            </div>
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+	$(document).ready(function () {
+        function RefrescarClicksDelete() {
+			$('.btnEliminar').off();
+			$('.btnEliminar').on('click', function () {
+			var id = $(this).attr('id');
+                swal({
+                    title: "Esta seguro?",
+                    text: "Una vez eliminado no se podrá recuperar",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                    $.ajax({
+					type: 'POST',
+					url: '@Url.Action("Delete", "Account")',
+					dataType: 'json',
+					data: { Id: id }
+					,
+					success: function (result) {
+                        swal("Usuario eliminado con exito", {
+                            icon: "success",
+                        });
+						table.ajax.reload();
+					},
+					error: function (error) {
+						swal("¡Error!", "El registro no fue eliminada.", "error");
+					}
+					});
+                    } else {
+                        swal("El usuario no se ha eliminado");
+                    }
+                });
+			});
+        }
+
+        $("#btnFiltrar").click(function () {
+            var nombre = $("#Nombre").val();
+            var nickName = $("#NickName").val();
+            var eMail = $("#EMail").val();
+            table.ajax.url('@Url.Action("GetData", "Account")' + '?NickName=' + nickName + '&EMail=' + eMail + '&Nombre=' + nombre ).load();
+        });
+		var table = $('#cliente-data-table').DataTable({
+			language: {
+				"sProcessing": "Procesando...",
+				"sLengthMenu": "Mostrar _MENU_ registros",
+				"sZeroRecords": "No se encontraron resultados",
+				"sEmptyTable": "Ningún dato disponible en esta tabla",
+				"sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+				"sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+				"sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+				"sInfoPostFix": "",
+				"sSearch": "Buscar:",
+				"sUrl": "",
+				"sInfoThousands": ",",
+				"sLoadingRecords": "Cargando...",
+				"oPaginate": {
+					"sFirst": "Primero",
+					"sLast": "Último",
+					"sNext": "Siguiente",
+					"sPrevious": "Anterior"
+				},
+				"oAria": {
+					"sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+					"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+				}
+			},
+			"searching": false,
+			"processing": true,
+			"serverSide": true,
+			"ajax": '@Url.Action("GetData", "Account")',
+			"columns": [
+				{
+					"data": "Nombre",
+					"searchable": true,
+					"orderable":true
+                },
+                {
+                    "data": "NickName",
+                    "searchable": true,
+                    "orderable": true
+                },
+                {
+                    "data": "EMail",
+                    "searchable": true,
+                    "orderable": true
+                },
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "mRender": function (data, type, row) {
+                        var table = '<ul>';
+                        table += row.Roles;
+                        //for (var i = 0; i < row.Roles.length; i++) {
+                        //    urlEdit += '<li>' + row.Roles[i].Nombre + '</li>';
+                        //}
+                        table += '</ul>';
+                        return table;
+                    }
+                },
+				{
+					"searchable": false,
+					"orderable": false,
+					"mRender": function (data, type, row) {
+						var urlEdit = '@Url.Action("Edit", "Account")' + '/';
+						var button = '<a class="btn btn-default" href="' + (urlEdit + row.Id) + '">Editar</a><button class="btn btn-danger btnEliminar" id="' + row.Id + '">Eliminar</button>'
+						return button;
+					}
+				}
+			],
+			"drawCallback": function (settings, json) {
+				RefrescarClicksDelete();
+			}
+        });
+
+    })
+</script>

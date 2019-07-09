@@ -1,0 +1,64 @@
+﻿@model preguntados_ppodgaiz.Models.ViewModels.Player.PlayerViewModel
+
+<div class="page-layout carded full-width single-scroll">
+
+    <div class="top-bg bg-deep-purple-100 "></div>
+
+    <!-- CONTENT -->
+    <div class="page-content-wrapper">
+
+        <!-- HEADER -->
+        <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
+
+            <!-- APP TITLE -->
+            <div class="col-12 col-sm">
+
+                <div class="logo row no-gutters justify-content-center align-items-start justify-content-sm-start">
+
+                    <div class="logo-text">
+                        <div class="h4">Ingresar</div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- / APP TITLE -->
+        </div>
+        <!-- / HEADER -->
+
+        <div class="page-content-card p-10">
+
+            @using (Html.BeginForm("Ingresar", "Sala", FormMethod.Post, new { @id = "form" }))
+            {
+
+                @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
+                <div class="form-row mt-2">
+                    <div class="col-md-4 form-group">
+                        <input id="Nombre" name="Nombre" class="form-control" type="text" value="@Model.Nombre" />
+                        <label for="Name" class="col-form-label">Nombre</label>
+                        <div class="invalid-feedback">
+                            @Html.ValidationMessageFor(m => m.Nombre, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div class="row mt-5 pt-5 pb-5 mb-5 d-flex justify-content-center">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn bg-deep-orange text-white btn-block">Ingresar</button>
+                    </div>
+                </div>
+                <div class="row mt-5 mb-10 d-flex justify-content-center">
+                    <div class="col-6 col-md-3">
+                        <br /><br /><br />
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+

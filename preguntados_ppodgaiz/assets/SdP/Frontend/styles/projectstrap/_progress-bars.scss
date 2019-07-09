@@ -1,0 +1,21 @@
+// Progress bars ==============================================================
+
+.progress {
+  @include box-shadow(none);
+  height: 15px;
+  margin-bottom: 10px;
+  
+  .progress-bar {
+    @include box-shadow(none);
+    line-height: 1.6;
+    padding-right: 4px;
+    font-weight: 700;
+    font-size: 10px;
+    text-align: right;
+  }
+
+  &.progress-sm {
+    height: 8px;
+  }
+}
+

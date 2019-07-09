@@ -1,0 +1,17 @@
+// List Group ======================================================================
+
+.list-group {
+  .list-group-item {
+    padding: $list-group-item-padding;
+  }
+  .list-group-item-heading {
+    font-size: 22px;
+  }
+  .list-group-item-text {
+    color: $gray-light;
+  }
+}
+
+.well {
+  @include box-shadow(none);
+}

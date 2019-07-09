@@ -1,0 +1,173 @@
+.frame{
+	position: absolute;
+
+	&.frame-top{
+
+		&.frame-25{
+			height: 25%;
+			top: 0;
+			right: 0;
+			left: 0;
+		}
+		&.frame-33{
+			height: 66%;
+			top: 0;
+			right: 0;
+			left: 0;
+		}
+		&.frame-50{
+			height: 50%;
+			top: 0;
+			right: 0;
+			left: 0;
+		}
+		&.frame-66{
+			height: 66%;
+			top: 0;
+			right: 0;
+			left: 0;
+		}
+		&.frame-75{
+			height: 75%;
+			top: 0;
+			right: 0;
+			left: 0;
+		}
+	}
+
+	&.frame-bottom{
+
+		&.frame-25{
+			height: 25%;
+			bottom: 0;
+			right: 0;
+			left: 0;
+		}
+		&.frame-33{
+			height: 33%; 
+			bottom: 0;
+			right: 0;
+			left: 0;
+		}
+		&.frame-50{
+			height: 50%;
+			bottom: 0;
+			right: 0;
+			left: 0;
+		}
+		&.frame-66{
+			height: 66%;
+			bottom: 0;
+			right: 0;
+			left: 0;
+		}
+		&.frame-75{
+			height: 75%;
+			bottom: 0;
+			right: 0;
+			left: 0;
+		}
+	}
+
+	&.frame-right{
+
+		&.frame-25{
+			width: 25%;
+			top: 0;
+			bottom: 0;
+			right: 0;
+		}
+		&.frame-33{
+			width: 33%;
+			top: 0;
+			bottom: 0;
+			right: 0;
+		}
+		&.frame-50{
+			width: 50%;
+			top: 0;
+			bottom: 0;
+			right: 0;
+		}
+		&.frame-66{
+			width: 66%;
+			top: 0;
+			bottom: 0;
+			right: 0;
+		}
+		&.frame-75{
+			width: 75%;
+			top: 0;
+			bottom: 0;
+			right: 0;
+		}
+	}
+
+	&.frame-left{
+
+		&.frame-25{
+			width: 25%;
+			top: 0;
+			bottom: 0;
+			left: 0;
+		}
+		&.frame-33{
+			width: 33%;
+			top: 0;
+			bottom: 0;
+			left: 0;
+		}
+		&.frame-50{
+			width: 50%;
+			top: 0;
+			bottom: 0;
+			left: 0;
+		}
+		&.frame-66{
+			width: 66%;
+			top: 0;
+			bottom: 0;
+			left: 0;
+		}
+		&.frame-75{
+			width: 75%;
+			top: 0;
+			bottom: 0;
+			left: 0;
+		}
+	}
+
+	&.frame-full{
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;	
+	}
+	
+	&.frame-photo{
+		background-position: center top;
+		background-size: cover;
+		opacity: 0;
+		-webkit-transition: all 1s ease;
+		transition: all 1s ease;
+	}
+}
+
+.row{
+	.middle-div{
+		display: table;
+		width: calc(100% - 30px);
+		@media (max-width: 767px) {
+			display: block;
+			width: auto;
+		}
+		[class^="col-"]{
+			float: none;
+			display: table-cell;
+			vertical-align: middle;
+			@media (max-width: 767px) {
+				display: block;
+			}			
+		}
+	}
+}

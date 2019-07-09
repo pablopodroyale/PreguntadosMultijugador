@@ -1,0 +1,11 @@
+//
+// Jumbotron
+// --------------------------------------------------
+
+
+.jumbotron {
+  .container &,
+  .container-fluid & {
+    border-radius: $jumbotron-border-radius;
+  }  
+}

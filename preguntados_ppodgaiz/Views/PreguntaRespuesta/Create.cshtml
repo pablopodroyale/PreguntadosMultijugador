@@ -1,0 +1,290 @@
+﻿@model preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta.PreguntaRespuestaABMViewModel
+
+
+<div class="page-layout carded full-width single-scroll">
+    <div class="top-bg bg-deep-purple-100 "></div>
+    <!-- CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- HEADER -->
+        <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
+            <!-- APP TITLE -->
+            <div class="col-12 col-sm">
+                <div class="logo row no-gutters justify-content-center align-items-start justify-content-sm-start">
+                    <div class="logo-text">
+                        <div class="h4">Crear Pregunta</div>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+        </div>
+        <!-- / HEADER -->
+
+        <div class="page-content-card p-10">
+            @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+            <div class="form-row mt-2">
+                <div class="col-md-6 form-group">
+                    <input id="Nombre" name="Nombre" class="form-control" type="text" value="@Model.Nombre" />
+                    <label for="Nombre" class="col-form-label">Pregunta</label>
+                </div>
+
+                <div class="col-md-6 form-group" style="z-index:1">
+                    <label for="Name" class="col-form-label">Categorias</label>
+                    <select id="CategoriaSeleccionada" class="chosen-select" name="CategoriaSeleccionada">
+                        <option value="@Guid.Empty">-</option>
+                        @foreach (var categoria in Model.CategoriasDisponibles)
+                        {
+                            <option @(categoria.Id == Model.CategoriaSeleccionada ? "selected" : "") value="@categoria.Id">@categoria.Nombre</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
+
+                </div>
+            </div>
+            <div class="form-row mt-2">
+                <div class="col-md-12 mt-5">
+                    <button id="btnNuevaRespuesta" class="btn btn-default" style="z-index:0">Nuevo Respuesta</button>
+
+                    <table id="tablaRespuestas" class="table table-responsive table-bordered table-hover">
+                        <tr>
+                            <th>Respuesta</th>
+                            <th>Es Correcta</th>
+                            <th>Eliminar</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row mt-5 pt-5 pb-5 mb-5 d-flex justify-content-center">
+                <div class="col-6 col-md-3">
+                    <button type="button" id="btnGuardar" class="btn bg-deep-orange text-white btn-block">Guardar</button>
+                </div>
+            </div>
+            <div class="row mt-5 mb-10 d-flex justify-content-center">
+                <div class="col-6 col-md-3">
+                    <br /><br /><br />
+                </div>
+            </div>
+            <div class="alert alert-danger" id="errorDivPregunta" style="display:none">
+
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <h4 class="modal-title">Crear Respuesta</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Respuesta</label>
+                        <input style="max-width: 100%; min-width: 100%;" type="text" id="idRespuesta" class="form-control" />
+                    </div>
+                    <!-- Material disabled -->
+                     <label>Es correcta</label>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                       
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="options" id="idNo" autocomplete="off" checked> No
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" id="idSi" autocomplete="off"> Si
+                        </label>
+                    </div>
+                    <div class="alert alert-danger" id="errorDiv" style="display:none">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary btnGuardarRespuesta">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var respuestas = [];
+            var erroresModal = [];
+            var idRes = 1;
+            const CANT_RESPUESTAS = 4;
+            const CANT_CORRECTAS = 1;
+            var erroresPregunta = [];
+            const errorCantRespuestas = "Error, la cantidad de respuestas debe ser 4";
+            const errorCantCorrectas = "Error, la cantidad de respuestas correctas debe ser una";
+            const errorRespuestaRepetida = "Error, la repsuesta ya existe";
+            function refrescarClicksEliminarRespuesta() {
+                $(".btnEliminarRespuesta").off();
+                $(".btnEliminarRespuesta").click(function () {
+                    var id = $(this).attr('id');
+
+                    for (j = 0; j < respuestas.length; j++) {
+                        if (respuestas[j].IdJs == id) {
+                            respuestas.splice(j, 1); //remover del array un elemento de la posicion j
+                            break;
+                        }
+                    }
+
+                    $("#row" + id).remove();
+                });
+            }
+
+            $("#btnNuevaRespuesta").click(function () {
+                if (respuestas.length == CANT_RESPUESTAS) {
+                    swal("Ya esta completa la cantidad de respuetas");
+                } else {
+                    $("#exampleModal").modal('show');
+                    $(".modal-backdrop").hide();
+                }
+
+            });
+
+            $(".btnGuardarRespuesta").click(function () {
+                erroresModal = [];
+                $(".errorDiv").hide();
+                var errorRespuesta = "La respuesta no debe estar vacia";
+                //var errorFecha = "La fecha no debe estar vacia";
+                if ($("#idRespuesta").val() == null || $("#idRespuesta").val().length == 0) {
+                    erroresModal.push(errorRespuesta);
+                } else if (!verificarRespuestaIgual($("#idRespuesta").val())){
+                    erroresModal.push(errorRespuestaRepetida);
+                } else {
+                    if ($("#idSi").is(":checked")) {
+                        $("input:radio").removeAttr("checked");
+                    }
+                    var respuesta = {
+                        Nombre: $("#idRespuesta").val(),
+                        EsCorrecta: $("#idSi").is(":checked") ? true : false,
+                        IdJs: idRes
+                    };
+                    idRes = idRes + 1;
+                    respuestas.push(respuesta);
+                    var row = '<tr id="row' + respuesta.IdJs + '">' +
+                        '<td> ' + respuesta.Nombre + '</td>' +
+                        '<td> ' +
+                            (respuesta.EsCorrecta == true  ? "si" : "no ") +
+                        '</td > ' +
+                        ' <td>' +
+                            '<button id= "' + respuesta.IdJs + '"' + 'type="button" class="btn btn-icon fuse-ripple-ready btnEliminarRespuesta" aria-label="Product details" data-toggle="tooltip" data-placement="top" data-original-title="Borrar">' +
+                                '<i class="icon icon-delete s-6"></i>' +
+                            '</button>' +
+                            '</td > ' +
+                        '</tr > ';
+                    $("#tablaRespuestas").append(row);
+                    refrescarClicksEliminarRespuesta();
+                    $("#exampleModal").modal('hide');
+                }
+                if (erroresModal.length > 0) {
+                    var html = '<ul>';
+                    for (i = 0; i < erroresModal.length; i++) {
+                        html += '<li>' + erroresModal[i] + '</li>'
+                    }
+                    html += '</ul>'
+                    $("#errorDiv").html(html);
+                    $("#errorDiv").fadeIn();
+                }
+                //Borrar valores
+                $("#idRespuesta").val("");
+                $("#idNo").prop("checked", true);
+            });
+
+            function verificarCantCorrectas() {
+                var cont = 0;
+                for (var i = 0; i < respuestas.length; i++) {
+                    if (respuestas[i].EsCorrecta == true) {
+                        cont = cont + 1;
+                    }
+                }
+                return respuestas.length > 0 && cont == CANT_CORRECTAS;
+            }
+
+            function verificarRespuestaIgual(respuesta) {
+                var repetida = false;
+                var index = 0;
+                while (index < respuestas.length && repetida == false) {
+                    if (respuestas[index].Nombre == respuesta) {
+                        repetida = true;
+                    } else {
+                        index++;
+                    }
+                }
+                return repetida == false;
+            }
+
+            $("#btnGuardar").click(function () {
+                erroresPregunta = [];
+                $("#errorDivPregunta").hide();
+                if (respuestas.length != CANT_RESPUESTAS) {
+                    erroresPregunta.push(errorCantRespuestas);
+                }
+                if (!verificarCantCorrectas()) {
+                    erroresPregunta.push(errorCantCorrectas);
+                }if (erroresPregunta.length > 0) {
+                    var html = '<ul>';
+                    for (i = 0; i < erroresPregunta.length; i++) {
+                        html += '<li>' + erroresPregunta[i] + '</li>'
+                    }
+                    html += '</ul>'
+                    $("#errorDivPregunta").html(html);
+                    $("#errorDivPregunta").fadeIn();
+                }else {
+                respuestas = [];
+                var table = $(".table");
+                table.find('tr').each(function (i) {
+                    if (i == 0) {
+                        return;
+                    }
+                    var $tds = $(this).find('td'),
+                        Nombre = $tds.eq(0).text(),
+                        Correcta = $tds.eq(1).text().replace(' ', '') == "si" ? true : false
+                    var respuesta = {
+                        Nombre: Nombre,
+                        EsCorrecta: Correcta,
+                        };
+                     respuestas.push(respuesta);
+                });
+                    $("#errorDiv").hide();
+                    var pregunta = {
+                        Nombre: $("#Nombre").val(),
+                        CategoriaSeleccionada: $("#CategoriaSeleccionada").val(),
+                        Respuestas: respuestas
+                };
+
+                 $.ajax({
+                        type: "POST",
+                         url: '@Url.Action("Create", "PreguntaRespuesta")',
+                        data: { model: pregunta },
+                        success: function (data) {
+                            if (data.Result == "OK") {
+                                window.location.href = '@Url.Action("Index", "PreguntaRespuesta")';
+                            } else {
+                                var html = '<ul>';
+                                for (i = 0; i < data.Error.length; i++) {
+                                    html += '<li>' + data.Error[i] + '</li>'
+                                }
+                                html += '</ul>'
+                                $("#errorDivPregunta").html(html);
+                                $("#errorDivPregunta").fadeIn();
+
+                            }
+                        }
+                  });
+                }
+            });
+
+        });
+    </script>
+}
+
+
+
+
+
+

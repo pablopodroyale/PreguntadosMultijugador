@@ -1,0 +1,149 @@
+﻿
+
+/// CLASES GENERICAS //
+
+.top-bg {
+    background-image: url(../images/backgrounds/bg_binit.jpg) !important;
+}
+
+.pointer{
+    cursor: pointer;
+}
+
+    .btn-fab-xs {
+        line-height: 3rem !important;
+        width: 3rem !important;
+        min-width: 3rem !important;
+        height: 3rem !important;
+        min-height: 3rem !important;
+    }
+
+
+
+    .z-back{
+        z-index: -1;
+    }
+
+    .z-front{
+        z-index: 8000 !important;
+    }
+
+
+.layout #wrapper > .aside > .aside-content > #sidenav .nav-link.active {
+    background: #dc5019;
+} 
+
+.link-card-mensajes {
+    text-decoration: none !important;
+}
+
+/// END CLASES GENERICAS ///
+/// START CHOSEN  //
+.chosen-container-multi .chosen-choices {
+    border: none;
+    background-image: none;
+    box-shadow: none;
+    border-bottom: 1px solid #949494;
+    width: 100%;
+    transition-property: box-shadow, -webkit-box-shadow;
+    transition-duration: 180ms, 180ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1), cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: initial, initial;
+}
+
+.chosen-container-single .chosen-single, .chosen-container-active.chosen-with-drop .chosen-single {
+    border: none;
+    background-image: none;
+    box-shadow: none;
+    border-bottom: 1px solid #949494;
+    width: 100%;
+    border-radius: 0;
+    transition-property: box-shadow, -webkit-box-shadow;
+    transition-duration: 180ms, 180ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1), cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: initial, initial;
+  
+}
+
+.chosen-container .chosen-drop {
+    border:none;
+}
+
+
+
+.chosen-container.chosen-container-multi {
+    width: 100% !important;
+}
+
+/// END CHOSEN  //
+
+.modal{
+    z-index: 3000 !important;
+}
+
+.modal-dialog {
+    z-index: 3000 !important;
+}
+
+/// START LOGIN ////
+#login {
+    height: 100vh;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    .form-wrapper {
+        height: 100vh;
+    }
+}
+
+.container-general-login {
+    background-size: cover;
+    background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)), url('../../SdP/Frontend/img/bg02.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+    .logo-login {
+        width: 50%;
+        
+    }
+
+
+
+.logo-sidebar {
+    width: 80%;
+}
+
+.layout #wrapper > .aside > .aside-content > .aside-toolbar .logo .logo-icon {
+    background:none;
+}
+
+
+    /// START LOGIN ////
+    /// START LAYOUT ///
+    div.aside-toolbar {
+        background: #fff !important;
+    }
+
+    i.icon.icon-backburger {
+        color: #383C48 !important;
+    }
+
+    .container-powered a{
+        text-decoration: none;
+    }
+
+    .container-powered img{
+        width: 30px;
+    }
+
+/// END LAYOUT ///
+
+
+/// START HOME ///
+.grafico-highchart {
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+}
+    /// START HOME ///

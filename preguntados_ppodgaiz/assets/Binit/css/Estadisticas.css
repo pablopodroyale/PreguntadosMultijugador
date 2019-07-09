@@ -1,0 +1,76 @@
+﻿#btnDetalles {
+    background-color: #5255A7; /* Blue */
+    border: 1px solid #ccc;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.btnDetallesColaborador {
+    background-color: #5255A7; /* Blue */
+    border: 1px solid #ccc;
+    color: white;
+    padding: 3px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+#btnVer {
+    background-color: #5255A7; /* Blue*/
+    border: 1px solid #ccc;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.select {
+    border: 1px solid #ccc;
+    width: 140px;
+    overflow: hidden;
+    background: #fff url("arrowdown.gif") no-repeat 90% center;
+}
+
+    .select select {
+        padding: 5px 8px;
+        width: 130%;
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+        background-image: none;
+        appearance: none;
+    }
+#DatosProyecto {
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    background: #5255A7
+}
+#listaColaboradores {
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    background: #5255A7
+}
+#listaActividades {
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    background: #5255A7
+}
+#lis {
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffffff;
+    background: #5255A7
+}
+

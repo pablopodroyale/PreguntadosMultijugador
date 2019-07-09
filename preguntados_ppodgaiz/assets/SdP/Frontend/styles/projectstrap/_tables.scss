@@ -1,0 +1,14 @@
+table.table{
+	tbody{
+		tr{			
+            td{
+                vertical-align: middle;
+                font-family: 'brandon-grotesque', sans-serif;
+                font-weight: 400;
+            }
+			&:last-child{
+				border-bottom: 1px solid #e6e6e6;
+			}			
+		}
+	}
+}
