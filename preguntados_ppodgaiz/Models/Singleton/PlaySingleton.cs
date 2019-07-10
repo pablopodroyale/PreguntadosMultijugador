@@ -42,5 +42,10 @@ namespace preguntados_ppodgaiz.Models.Singleton
             return players;
         }
 
+        public void SetToQueue(Guid id)
+        {
+            var player = players.Where(p => p.Id == id).FirstOrDefault();
+            player.EnCola = true;
+        }
     }
 }

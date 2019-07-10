@@ -38,15 +38,31 @@
             <div class="form-row mt-2">
                 <div class="col-8" style="border-style:outset;">
                     <div class="form-group row">
-                        <h3 class="col-2 offset-5"><strong>Mi Sala </strong> </h3>
+                        <h3 class="col-2 offset-4"><strong>Mi Sala </strong> </h3>
                     </div>
-                    <div class="form-group row">
-                        <div id="idMiSala" class="col-8 offset-2" style="border-style:inset;width:40%;height:200px">
-
+                    <div class="form-group row" >
+                        <div id="idMiSala" class="col-9 offset-1" style="border-style:inset;width:10em;height:500px;max-width:80%;overflow:auto">
+                            <div class="form-inline">
+                                <h3>Categoría sorteada:</h3>
+                                <h4 id="idTituloCategoriaSorteada"></h4>
+                            </div>
+                            <div class="form-group row">
+                                <div id="idJugadoresElejidos" class="col-7 offset-2" style="border-style:inset;overflow:auto;width:100px;height:300px">
+                                    <table class="table table-responsive table-striped table-bordered col-4">
+                                        <thead>
+                                            <tr>
+                                                <th>Nick</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="idTbodyJugadoresElejidos"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <a  id="idEmpezar" class="btn bg-blue-A400 text-white btn-block col-9 offset-1">Empezar</a>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <a id="idCrearSala" class="btn bg-deep-orange text-white btn-block col-8 offset-2">Crear sala</a>
+                        <a id="idCrearSala" class="btn bg-deep-orange text-white btn-block col-9 offset-1">Crear sala</a>
                     </div>
                 </div>
                 <div class="col-4" style="border-style:outset;">
@@ -55,7 +71,7 @@
                     </div>
                     <div class="form-group row">
                         <div id="idJugadores" class="col-10 offset-1" style="border-style:inset;overflow:auto;width:100%">
-                            <table class="table table-responsive table-striped table-bordered col-12" style="width:500px;height:500px;padding:0px">
+                            <table class="table table-responsive table-striped table-bordered col-12" style="width:500px;height:300px;padding:0px">
                                 <thead>
                                     <tr>
                                         <th>Nick</th>
@@ -63,13 +79,13 @@
                                     </tr>
                                 </thead>
                                 <tbody id="idTbodyJugadores">
-                                    @foreach (var item in Model)
+                                    @*@foreach (var item in Model)
                                     {
-                                        <tr>
+                                        <tr id="@("idRowJugadores"+ item.Id)" >
                                             <td>@item.Nombre</td>
-                                            <td> <a id="@item.Id" class="btn bg-deep-orange text-white btn-block">Agregar</a></td>
+                                            <td> <a id="@item.Id" class="btn bg-deep-orange text-white btn-block btnAgregarJugador">Agregar</a></td>
                                         </tr>
-                                    }
+                                    }*@
                                 </tbody>
                             </table>
                         </div>
@@ -122,7 +138,7 @@
                     {
                         // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
                         let categoria = theWheel.getIndicatedSegment();
-
+                        $("#idTituloCategoriaSorteada").text(categoria.text);
                         
                     }
                 </script>
@@ -156,18 +172,42 @@
                     if (data != null) {
                         for (var i = 0; i < data.length; i++) {
                             html +=
-                            '<tr>' +
+                            '<tr id="rowJugadores'+ data[i].Id +'">' +
                             ' <td>' + data[i].Nombre + '</td>' +
-                            ' <td> <a id="' + data[i].Id + '" class="btn bg-deep-orange text-white btn-block">Agregar</a></td>' +
+                            ' <td> <a id="' + data[i].Id + '" data-nombre="' +data[i].Nombre + '" class="btn bg-deep-orange text-white btn-block btnAgregarJugador">Agregar</a></td>' +
                             '</tr>';
                             }
-                             $("#idTbodyJugadores").html(html);
+                            $("#idTbodyJugadores").html(html);
+                            refrescarClicksAgregarJugador();
                         }
                     }
-                });
+            });
 
         }, 4000);
     })
+    function refrescarClicksAgregarJugador() {
+        $(".btnAgregarJugador").off();
+        $(".btnAgregarJugador").click(function () {
+            var id = $(this).attr('id');
+            var nombre = $(this).data('nombre');
+            $("#rowJugadores" + id).remove();
+             var html =
+            '<tr id="idRowJugadoresElejidos'+ id +'">' +
+                ' <td>' + nombre + '</td>' +
+            '</tr>';
+            $("#idTbodyJugadoresElejidos").append(html);
+            //Cambiar el estado del jugador a esperando
+             $.ajax({
+                type: "POST",
+                data: {id : id},
+                url: '@Url.Action("SetToQueue", "Lobby")',
+                success: function (data) {
+                   
+                    
+                }
+            });
 
+        });
+    }
 </script>
 
