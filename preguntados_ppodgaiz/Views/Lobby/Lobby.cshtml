@@ -1,4 +1,4 @@
-﻿@model List<preguntados_ppodgaiz.Models.Dominio.Player>
+﻿@model  preguntados_ppodgaiz.Models.Dominio.Player
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -95,6 +95,7 @@
         </div>
     </div>
 </div>
+@Html.Hidden("Categoria", "" ,new {@id = "idHiddenCategoria" });
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated bounceInRight">
@@ -138,6 +139,7 @@
                     {
                         // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
                         let categoria = theWheel.getIndicatedSegment();
+                        $("#idHiddenCategoria").val(categoria.text);
                         $("#idTituloCategoriaSorteada").text(categoria.text);
                         
                     }
@@ -148,7 +150,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-" data-dismiss="modal">Cancelar</button>
-                <button id="idBtnGuardarCategoria" type="button" class="btn btn-success btnGuardarCategoria" onClick="theWheel.startAnimation();">Guardar</button>
+                <button id="idBtnGuardarCategoria" type="button" class="btn btn-success btnGuardarCategoria" onClick="theWheel.startAnimation();">Confirmar Categoría</button>
             </div>
         </div>
     </div>
@@ -161,7 +163,42 @@
         $("#idCrearSala").click(function () {
             $("#exampleModal").modal('show');
             $(".modal-backdrop").hide();
+            //Setearlo como owner
+             $.ajax({
+                type: "POST",
+                data: {id : '@Model.Id'},
+                url: '@Url.Action("SetOwner", "Lobby")',
+                success: function (data) {
+                  
+                }
+            });
         });
+
+        $("#idEmpezar").click(function () {
+            var categoria = $("#idHiddenCategoria").val();
+             $.ajax({
+                 type: "POST",
+                 data: {categoria :categoria},
+                url: '@Url.Action("EmpezarPartida", "Lobby")',
+                success: function (data) {
+                    window.location.href = '@Url.Action("Jugar","Jugar")?id=' + data ;
+                }
+            });
+        });
+
+        
+        window.setInterval(function () {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("VerificarComienzo", "Lobby")',
+                success: function (data) {
+                    if (data == "ok") {
+                        console.log("sas");
+                    }
+                }
+            });
+        }, 4000);
+
 
         window.setInterval(function () {
             $.ajax({

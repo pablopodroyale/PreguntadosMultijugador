@@ -47,5 +47,11 @@ namespace preguntados_ppodgaiz.Models.Singleton
             var player = players.Where(p => p.Id == id).FirstOrDefault();
             player.EnCola = true;
         }
+
+        public void SetOwner(Guid id)
+        {
+            var player = players.Where(p => p.Id == id).FirstOrDefault();
+            player.Owner = true;
+        }
     }
 }

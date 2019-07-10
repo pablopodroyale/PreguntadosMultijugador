@@ -62,7 +62,7 @@
         }
 
         function Redirigir() {
-            window.location.href = '@Url.Action("Jugar", "Jugar")';
+            window.location.href = '@Url.Action("Jugar", "Jugar")?id=' + '@Model.CategoriaId';
         }
 
         var id ="";

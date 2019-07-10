@@ -34,16 +34,27 @@ namespace preguntados_ppodgaiz.Controllers
             return View(model);
         }
 
-        public ActionResult Jugar(Guid id)
+        public ActionResult Jugar(string id)
         {
+            var idGuid = new Guid(id);
             var userId = User.Identity.GetUserId();
             var repoUsuario = new Repositorio<Usuario>(db);
             var repoPregunta = new Repositorio<Pregunta>(db);
+            var repoCategoria = new Repositorio<Categoria>(db);
             var repoPreguntasRespondidas = new Repositorio<PreguntasRespondidas>(db);
-            var preguntas = repoPregunta.TraerTodos().Where(p => p.Categoria.Id == id).ToList();
-            var preguntasRespondidas = repoPreguntasRespondidas.TraerTodos().Where(p => p.Usuario.ApplicationUser.Id == userId && p.Categoria.Id == id).ToList();
+            Categoria categoriaSeleccionada = null;
+            //Traer la categoria
+            if (id != null)
+            {
+                categoriaSeleccionada = repoCategoria.TraerTodos().Where(c => c.Id == idGuid).FirstOrDefault();
+
+            }
+           
+            var preguntas = repoPregunta.TraerTodos().Where(p => p.Categoria.Id == categoriaSeleccionada.Id).ToList();
+            var preguntasRespondidas = repoPreguntasRespondidas.TraerTodos().Where(p => p.Usuario.ApplicationUser.Id == userId && p.Categoria.Id == categoriaSeleccionada.Id).ToList();
+            
             //chequear cuantas tiene la categoria
-            int cantidadAContestar = preguntas.Where(c => c.Categoria.Id == id).FirstOrDefault().Categoria.CantidadPreguntasAResponder;
+            int cantidadAContestar = preguntas.Where(c => c.Categoria.Id == categoriaSeleccionada.Id).FirstOrDefault().Categoria.CantidadPreguntasAResponder;
             //cuantas contesto
             int cantidadContestadas = preguntasRespondidas != null ? preguntasRespondidas.Count() : 0;
             //que tiene el juego menos las que contesto
@@ -61,7 +72,7 @@ namespace preguntados_ppodgaiz.Controllers
                 return View("Juego", model);
             }
             int cantidadCorrectas = repoPreguntasRespondidas.TraerTodos().Count(p => p.Respuesta.EsCorrecta);
-            var resultados = repoPreguntasRespondidas.TraerTodos().Where(p => p.Usuario.ApplicationUser.Id == userId && p.Categoria.Id == id).Select(r => new ResultadoJuegoViewModel
+            var resultados = repoPreguntasRespondidas.TraerTodos().Where(p => p.Usuario.ApplicationUser.Id == userId && p.Categoria.Id == categoriaSeleccionada.Id).Select(r => new ResultadoJuegoViewModel
             {
                 Id = r.Id,
                 Nombre = r.Pregunta.Nombre,
