@@ -11,13 +11,13 @@ namespace preguntados_ppodgaiz.Models.Singleton
         private List<Player> players;
         private static PlaySingleton instance;
         private List<Juego> juegos;
-       
+
 
         private PlaySingleton()
         {
             players = new List<Player>();
             juegos = new List<Juego>();
-            
+
         }
 
         public static PlaySingleton GetInstance
@@ -46,10 +46,15 @@ namespace preguntados_ppodgaiz.Models.Singleton
             return players;
         }
 
-        public void SetToQueue(Guid idPlayer)
+        public void SetToQueue(Guid idPlayer, Guid idOwner)
         {
+            var juego = juegos.Where(j => j.Players.Any(p => p.Usuario.Id == idOwner)).FirstOrDefault();
             var player = players.Where(p => p.Usuario.Id == idPlayer).FirstOrDefault();
-            player.EnCola = true;
+            if (juego != null && player != null)
+            {
+                player.EnCola = true;
+                juego.setPlayer(player);
+            }
         }
 
         public void SetOwner(Guid id)
@@ -58,12 +63,27 @@ namespace preguntados_ppodgaiz.Models.Singleton
             player.Owner = true;
         }
 
-        public bool VerificarEnEspera(Guid idPlayer)
+        public string VerificarEstado(Guid idPlayer)
         {
-            return players.Where(p => p.Usuario.Id == idPlayer).FirstOrDefault().EnCola;
+            string estado = null;
+            var player =  players.Where(p => p.Usuario.Id == idPlayer).FirstOrDefault();
+            if (player != null && player.EnCola)
+            {
+                estado = "encola";
+            }
+            else if (player != null && player.Jugando)
+            {
+                estado = "jugando";
+            }
+            else {
+                estado = "ensala";
+            }
+            return estado;
+
+
         }
 
-        public void CrearJuego(Categoria categoria,Guid idPlayer, List<Pregunta> preguntas)
+        public void CrearJuego(Categoria categoria, Guid idPlayer, List<Pregunta> preguntas)
         {
             var player = players.Where(p => p.Usuario.Id == idPlayer).FirstOrDefault();
             var juego = new Juego();
@@ -72,6 +92,20 @@ namespace preguntados_ppodgaiz.Models.Singleton
             juego.setCategoria(categoria);
             juego.setPreguntas(preguntas);
             juegos.Add(juego);
+        }
+
+        public void EmpezarPartida(Guid idPlayer)
+        {
+            var owner = juegos.SelectMany(j => j.Players.Where(p => p.Usuario.Id == idPlayer)).FirstOrDefault();
+            Juego juego = null;
+            if (owner != null && owner.Owner == true)
+            {
+                juego = juegos.Where(j => j.Players.Any(p => p.Usuario.Id == idPlayer)).FirstOrDefault();
+                juego.EnJuego = true;
+                juego.setEnJuego();
+            }
+
+
         }
     }
 }

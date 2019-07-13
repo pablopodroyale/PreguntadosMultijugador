@@ -11,9 +11,10 @@ namespace preguntados_ppodgaiz.Models.Dominio
         public List<Player> Players { get; set; }
         public List<Pregunta> Preguntas { get; set; }
         public Guid Id { get; set; }
-
+        public bool EnJuego { get; set; } = false;
         public Juego()
         {
+            Players = new List<Player>();
             Id = new Guid();
         }
 
@@ -30,6 +31,15 @@ namespace preguntados_ppodgaiz.Models.Dominio
         public void setPlayer(Player player)
         {
             Players.Add(player);
+        }
+
+        public void setEnJuego()
+        {
+            foreach (var item in Players)
+            {
+                item.EnCola = false;
+                item.Jugando = true;
+            }
         }
     }
 }

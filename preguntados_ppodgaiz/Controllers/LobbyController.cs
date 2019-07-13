@@ -42,22 +42,16 @@ namespace preguntados_ppodgaiz.Controllers
         //    PlaySingleton.GetInstance.AgregarJugador(player);
         //    return RedirectToAction("Ingresar");
         //}
-        public ActionResult VerificarEnEspera(Guid idPlayer)
+        public ActionResult VerificarEstado(Guid idPlayer)
         {
-            bool enEspera = PlaySingleton.GetInstance.VerificarEnEspera(idPlayer);
-            if (enEspera)
-            {
-                return Json("ok",JsonRequestBehavior.AllowGet);
-            }
-            return Json("wait", JsonRequestBehavior.AllowGet);
+            string estado = PlaySingleton.GetInstance.VerificarEstado(idPlayer);
+            return Json(estado, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult EmpezarPartida(string categoria)
+        public ActionResult EmpezarPartida(Guid idPlayer)
         {
-            var repoCategoria = new Repositorio<Categoria>(db);
-            var id = repoCategoria.TraerTodos().Where(c => c.Nombre == categoria).FirstOrDefault().Id;
-            empezar = true;
-            return Json(id,JsonRequestBehavior.AllowGet);
+            PlaySingleton.GetInstance.EmpezarPartida(idPlayer);
+            return Json("",JsonRequestBehavior.AllowGet);
         }
 
 
@@ -77,9 +71,10 @@ namespace preguntados_ppodgaiz.Controllers
         }
 
         //Agregar un jugador a la espera
-        public ActionResult SetToQueue(Guid idUsuario)
+        public ActionResult SetToQueue(Guid idPlayer, Guid idOwner)
         {
-            PlaySingleton.GetInstance.SetToQueue(idUsuario);
+            //Guid id = new Guid(idPlayer);
+            PlaySingleton.GetInstance.SetToQueue(idPlayer, idOwner);
             return Json("ok",JsonRequestBehavior.AllowGet);
         }
 

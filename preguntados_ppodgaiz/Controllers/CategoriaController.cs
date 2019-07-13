@@ -78,7 +78,7 @@ namespace preguntados_ppodgaiz.Controllers
         }
 
         public ActionResult GetCategorias()
-        {
+      {
             var categorias = new Repositorio<Categoria>(db).TraerTodos().ToList().Where(p => p.Preguntas.Count >= 4)
              .Select(m => new  {
                  fillStyle = m.Color,

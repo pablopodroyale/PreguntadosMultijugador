@@ -35,6 +35,7 @@ namespace preguntados_ppodgaiz.Models
         }
 
         public static ApplicationDbContext Create()
+
         {
             return new ApplicationDbContext();
         }

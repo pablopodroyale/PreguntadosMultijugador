@@ -92,6 +92,13 @@ namespace preguntados_ppodgaiz.Controllers
             resultadoWraper.Score = cantidadCorrectas + "/" +  cantidadAContestar;
             return View("Resultados", resultadoWraper);
         }
+
+        public ActionResult JugarMultijugador(Guid idPlayer)
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public ActionResult Save(PreguntaRespondidaViewModel model)
         {

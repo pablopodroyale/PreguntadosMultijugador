@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <a id="idCrearJuego" class="btn bg-deep-orange text-white btn-block col-9 offset-1">Crear Juego</a>
+                        <button id="idCrearJuego" class="btn bg-deep-orange text-white btn-block col-9 offset-1">Crear Juego</button>
                     </div>
                 </div>
                 <div class="col-4" style="border-style:outset;">
@@ -143,7 +143,9 @@
                             },
                             url: '@Url.Action("CrearJuego", "Lobby")',
                             success: function (data) {
-                  
+                                $("#exampleModal").modal('hide');
+                                $("#idBtnGuardarCategoria").prop('disabled', true);
+                                $("#idCrearJuego").prop('disabled',true);
                             }
                         });
                     }
@@ -172,13 +174,13 @@
         });
 
         $("#idEmpezar").click(function () {
-            var categoria = $("#idHiddenCategoria").val();
-             $.ajax({
+
+            $.ajax({
                  type: "POST",
-                 data: {categoria :categoria},
+                 data: {idPlayer :'@Model.Usuario.Id'},
                 url: '@Url.Action("EmpezarPartida", "Lobby")',
                 success: function (data) {
-                    window.location.href = '@Url.Action("Jugar","Jugar")?id=' + data ;
+                    window.location.href = '@Url.Action("JugarMultijugador","Jugar")?idPlayer=' + data ;
                 }
             });
         });
@@ -186,12 +188,15 @@
         
         window.setInterval(function () {
             $.ajax({
-                type: "GET",
+                type: "POST",
                 data: {idPlayer: '@Model.Usuario.Id'},
-                url: '@Url.Action("VerificarEnEspera", "Lobby")',
+                url: '@Url.Action("VerificarEstado", "Lobby")',
                 success: function (data) {
-                    if (data == "ok") {
-                        console.log("sas");
+                    if (data == "encola") {
+                        console.log("encola");
+                    }
+                    if (data == "jugando") {
+                        window.location.href = '@Url.Action("JugarMultijugador","Jugar")';
                     }
                 }
             });
@@ -235,7 +240,10 @@
             //Cambiar el estado del jugador a esperando
              $.ajax({
                 type: "POST",
-                data: {id : id},
+                 data: {
+                     idPlayer: id,
+                     idOwner: '@Model.Usuario.Id'
+                 },
                 url: '@Url.Action("SetToQueue", "Lobby")',
                 success: function (data) {
                    
