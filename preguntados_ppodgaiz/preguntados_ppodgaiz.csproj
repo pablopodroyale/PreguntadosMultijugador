@@ -267,6 +267,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Dominio\Categoria.cs" />
     <Compile Include="Models\Dominio\Entidad.cs" />
+    <Compile Include="Models\Dominio\Juego.cs" />
     <Compile Include="Models\Dominio\LogEvento.cs" />
     <Compile Include="Models\Dominio\Player.cs" />
     <Compile Include="Models\Dominio\Pregunta.cs" />

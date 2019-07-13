@@ -47,7 +47,6 @@ namespace preguntados_ppodgaiz.Controllers
             if (id != null)
             {
                 categoriaSeleccionada = repoCategoria.TraerTodos().Where(c => c.Id == idGuid).FirstOrDefault();
-
             }
            
             var preguntas = repoPregunta.TraerTodos().Where(p => p.Categoria.Id == categoriaSeleccionada.Id).ToList();

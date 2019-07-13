@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <a id="idCrearSala" class="btn bg-deep-orange text-white btn-block col-9 offset-1">Crear sala</a>
+                        <a id="idCrearJuego" class="btn bg-deep-orange text-white btn-block col-9 offset-1">Crear Juego</a>
                     </div>
                 </div>
                 <div class="col-4" style="border-style:outset;">
@@ -79,13 +79,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="idTbodyJugadores">
-                                    @*@foreach (var item in Model)
-                                    {
-                                        <tr id="@("idRowJugadores"+ item.Id)" >
-                                            <td>@item.Nombre</td>
-                                            <td> <a id="@item.Id" class="btn bg-deep-orange text-white btn-block btnAgregarJugador">Agregar</a></td>
-                                        </tr>
-                                    }*@
+                                   
                                 </tbody>
                             </table>
                         </div>
@@ -129,19 +123,29 @@
                             'duration': 5,             // How long the animation is to take in seconds.
                             'spins': 8,            // The number of complete 360 degree rotations the wheel is to do.4
                             // Remember to do something after the animation has finished specify callback function.
-                            'callbackFinished' : 'getCategoria()',
+                            'callbackFinished' : 'crearJuego()',
 
                         }
                         });
                             }
                         });
-                    function getCategoria()
+                    function crearJuego()
                     {
                         // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
                         let categoria = theWheel.getIndicatedSegment();
                         $("#idHiddenCategoria").val(categoria.text);
                         $("#idTituloCategoriaSorteada").text(categoria.text);
-                        
+                            $.ajax({
+                            type: "POST",
+                            data: {
+                                idPlayer: '@Model.Usuario.Id',
+                                nombreCategoria: categoria.text
+                            },
+                            url: '@Url.Action("CrearJuego", "Lobby")',
+                            success: function (data) {
+                  
+                            }
+                        });
                     }
                 </script>
                 <div class="alert alert-danger" id="errorDiv" style="display:none">
@@ -160,18 +164,11 @@
 <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#idCrearSala").click(function () {
+        $("#idCrearJuego").click(function () {
             $("#exampleModal").modal('show');
             $(".modal-backdrop").hide();
             //Setearlo como owner
-             $.ajax({
-                type: "POST",
-                data: {id : '@Model.Id'},
-                url: '@Url.Action("SetOwner", "Lobby")',
-                success: function (data) {
-                  
-                }
-            });
+        
         });
 
         $("#idEmpezar").click(function () {
@@ -190,7 +187,8 @@
         window.setInterval(function () {
             $.ajax({
                 type: "GET",
-                url: '@Url.Action("VerificarComienzo", "Lobby")',
+                data: {idPlayer: '@Model.Usuario.Id'},
+                url: '@Url.Action("VerificarEnEspera", "Lobby")',
                 success: function (data) {
                     if (data == "ok") {
                         console.log("sas");
@@ -203,15 +201,16 @@
         window.setInterval(function () {
             $.ajax({
                 type: "GET",
+                data: {idPlayer : '@Model.Usuario.Id'},
                 url: '@Url.Action("GetPlayers", "Lobby")',
                 success: function (data) {
                     var html = "";
                     if (data != null) {
                         for (var i = 0; i < data.length; i++) {
                             html +=
-                            '<tr id="rowJugadores'+ data[i].Id +'">' +
-                            ' <td>' + data[i].Nombre + '</td>' +
-                            ' <td> <a id="' + data[i].Id + '" data-nombre="' +data[i].Nombre + '" class="btn bg-deep-orange text-white btn-block btnAgregarJugador">Agregar</a></td>' +
+                            '<tr id="rowJugadores'+ data[i].Usuario.Id +'">' +
+                            ' <td>' + data[i].Usuario.Nombre + '</td>' +
+                            ' <td> <a id="' + data[i].Usuario.Id + '" data-nombre="' +data[i].Usuario.Nombre + '" class="btn bg-deep-orange text-white btn-block btnAgregarJugador">Agregar</a></td>' +
                             '</tr>';
                             }
                             $("#idTbodyJugadores").html(html);
