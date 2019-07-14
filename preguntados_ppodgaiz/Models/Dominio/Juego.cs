@@ -1,4 +1,5 @@
-﻿using System;
+﻿using preguntados_ppodgaiz.Models.ViewModels.Resultado;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -47,6 +48,21 @@ namespace preguntados_ppodgaiz.Models.Dominio
         public Pregunta GetPreguntaJuego(int nroPreguntaRespondida)
         {
             return Preguntas.OrderBy(p => p.Id).ToList()[nroPreguntaRespondida];
+        }
+
+        public Player GetPlayer(Guid idPlayer)
+        {
+            return Players.Where(p => p.Usuario.Id == idPlayer).FirstOrDefault();
+        }
+
+        public ResultadoMultijugadorViewModel GetResultados()
+        {
+            ResultadoMultijugadorViewModel model = new ResultadoMultijugadorViewModel();
+            model.Categoria = Categoria.Nombre;
+            foreach (var item in Players)
+            {
+                
+            }
         }
     }
 }

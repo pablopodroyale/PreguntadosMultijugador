@@ -20,5 +20,11 @@ namespace preguntados_ppodgaiz.Models.Dominio
         {
             Usuario = usuario;
         }
+
+        public void SetRespuestaSeleccionada(Guid idPregunta ,Guid respuestaSeleccionadaId)
+        {
+            var preguntaRespuesta = PreguntaRespuestas.SelectMany(p => p.Respuestas.Where(r => r.IdPregunta == idPregunta)).FirstOrDefault();
+            preguntaRespuesta.RespuestaSeleccionada = respuestaSeleccionadaId;
+        }
     }
 }

@@ -58,7 +58,7 @@
                                     </table>
                                 </div>
                             </div>
-                            <a  id="idEmpezar" class="btn bg-blue-A400 text-white btn-block col-9 offset-1">Empezar</a>
+                            <button  id="idEmpezar" disabled class="btn bg-blue-A400 text-white btn-block col-9 offset-1">Empezar</button>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -145,7 +145,9 @@
                             success: function (data) {
                                 $("#exampleModal").modal('hide');
                                 $("#idBtnGuardarCategoria").prop('disabled', true);
-                                $("#idCrearJuego").prop('disabled',true);
+                                $("#idCrearJuego").prop('disabled', true);
+                                $("#idEmpezar").prop('disabled', false);
+                                //$(".btnAgregarJugador").prop('disabled',false);
                             }
                         });
                     }
@@ -215,7 +217,7 @@
                             html +=
                             '<tr id="rowJugadores'+ data[i].Usuario.Id +'">' +
                             ' <td>' + data[i].Usuario.Nombre + '</td>' +
-                            ' <td> <a id="' + data[i].Usuario.Id + '" data-nombre="' +data[i].Usuario.Nombre + '" class="btn bg-deep-orange text-white btn-block btnAgregarJugador">Agregar</a></td>' +
+                            ' <td> <button id="' + data[i].Usuario.Id + '" data-nombre="' +data[i].Usuario.Nombre + '" class="btn bg-deep-orange text-white btn-block btnAgregarJugador">Agregar</button></td>' +
                             '</tr>';
                             }
                             $("#idTbodyJugadores").html(html);

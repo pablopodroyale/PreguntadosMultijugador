@@ -25,6 +25,7 @@ namespace preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta
             {
                 Id = p.Id,
                 Nombre = p.Nombre,
+                EsCorrecta = p.EsCorrecta
                 
             }).ToList();
             this.CategoriaId = pregunta.Categoria.Id;

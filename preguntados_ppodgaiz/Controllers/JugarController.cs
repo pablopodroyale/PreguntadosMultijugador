@@ -7,6 +7,7 @@ using preguntados_ppodgaiz.Models.Singleton;
 using preguntados_ppodgaiz.Models.ViewModels.Categoria;
 using preguntados_ppodgaiz.Models.ViewModels.Juego;
 using preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta;
+using preguntados_ppodgaiz.Models.ViewModels.Resultado;
 using preguntados_ppodgaiz.Repositorio;
 using System;
 using System.Collections.Generic;
@@ -112,35 +113,20 @@ namespace preguntados_ppodgaiz.Controllers
 
                 return View("JugarMultiJugador", model);
             }
-            //int cantidadCorrectas = repoPreguntasRespondidas.TraerTodos().Count(p => p.Respuesta.EsCorrecta);
-            //var resultados = repoPreguntasRespondidas.TraerTodos().Where(p => p.Usuario.ApplicationUser.Id == userId && p.Categoria.Id == categoriaSeleccionada.Id).Select(r => new ResultadoJuegoViewModel
-            //{
-            //    Id = r.Id,
-            //    Nombre = r.Pregunta.Nombre,
-            //    CategoriaId = r.Categoria.Id,
-            //    Usuarioid = r.Usuario.Id,
-            //    RespuestaContestada = r.Respuesta.Id,
-            //    RespuestaCorrecta = r.Pregunta.Respuestas.Where(q => q.EsCorrecta).FirstOrDefault().Id,
-            //    //Resultado = cantidadCorrectas + "/" + cantidadAContestar,
-            //    Respuestas = r.Pregunta.Respuestas.Select(p => new RespuestaResultadoViewModel
-            //    {
-            //        Id = p.Id,
-            //        Nombre = p.Nombre,
-            //        EsCorrecta = p.EsCorrecta
-            //    }).ToList()
-            //}).ToList();
+
+            var resultados = juego.GetResultados();
             //ResultadoWraperJuegoViewModel resultadoWraper = new ResultadoWraperJuegoViewModel();
             //resultadoWraper.Resultado = resultados;
             //resultadoWraper.Score = cantidadCorrectas + "/" + cantidadAContestar;
-            //return View("Resultados", resultadoWraper);
-            return null;
+            return View("ResultadosMultijugador", resultados);
         }
 
         [HttpPost]
         public ActionResult SaveMultijugador(PreguntaRespondidaMultijugadorViewModel model)
         {
             var juego = PlaySingleton.GetInstance.GetJuego(model.JuegoId);
-            var player = PlaySingleton.GetInstance.GetPlayer(model.PlayerId);
+            var player = juego.GetPlayer(model.PlayerId);
+            player.SetRespuestaSeleccionada(model.PreguntaId ,model.RespuestaSeleccionadaId);
             player.NroPreguntaRespondida = player.NroPreguntaRespondida + 1;
             var respuestaCorrectaId = juego.Preguntas.Where(p => p.Id == model.PreguntaId).FirstOrDefault().Respuestas.Where(r => r.EsCorrecta).FirstOrDefault().Id;
             //LoggerEventos.LogearEvento("Pregunta respondida: " + model.Nombre, User.Identity.GetUserId(), model.Id, AccionesLogEnum.RESPONDER_PREGUNTA, EntidadLogEnum.PREGUNTA_RESPONDIDA);

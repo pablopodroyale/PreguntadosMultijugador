@@ -15,7 +15,7 @@
         <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
             <!-- APP TITLE -->
             <div class="col-12 col-sm">
-                <h4 class="col-md-6 offset-5">Pregunta</h4>
+                <h4 class="col-md-6 offset-5">Pregunta:</h4>
             </div>
             <button type="button" class="btn btn-icon">
                 <i class="icon icon-magnify"></i>
@@ -26,7 +26,7 @@
         <div class="page-content-card p-10" style="background-image: url('../../Content/Images/question3.jpg');background-repeat:round;background-attachment: fixed; background-position: center; ">
             <div class="form-row mt-2">
                 <div class="card border-info mb-3 offset-sm-1" style="width:200rem;">
-                    <div style="font-family:cursive; font-weight: bold;" class="card-header align-content-center text-uppercase">Pregunta:</div>
+                    <div style="font-family:cursive; font-weight: bold;" class="card-header align-content-center text-uppercase">Pregunta: @Model.Nombre</div>
                     @foreach (var item in Model.Respuestas)
                         {
                            <div class="card-body text-info align-content-around" style="font-family:cursive">
@@ -69,12 +69,12 @@
         $(".btnSaveRespuesta").click(function () {
             id = $(this).attr('id');
             var respuesta = {
-                Id: @Model.Id,
+                Id: '@Model.Id',
                 JuegoId: '@Model.IdJuego',
                 RespuestaSeleccionadaId: $(this).attr('id'),
-                UsuarioId: @Model.Usuarioid,
-                PlayerId: @Model.Usuarioid,
-                PreguntaId : @Model.
+                UsuarioId: '@Model.Usuarioid',
+                PlayerId: '@Model.Usuarioid',
+                PreguntaId : '@Model.PreguntaId'
             }
             $.ajax({
                 type: "Post",
