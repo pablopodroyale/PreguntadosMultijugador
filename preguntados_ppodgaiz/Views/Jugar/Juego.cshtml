@@ -73,7 +73,8 @@
                 Nombre: '@Model.Nombre',
                 CategoriaId: '@Model.CategoriaId',
                 RespuestaSeleccionadaId: $(this).attr('id'),
-                UsuarioId: '@Model.Usuarioid'
+                UsuarioId: '@Model.Usuarioid',
+                JuegoId: '@Model.IdJuego'
             }
             $.ajax({
                 type: "Post",

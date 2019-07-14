@@ -297,8 +297,11 @@
     <Compile Include="Models\ViewModels\Player\PlayerViewModel.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\IncorrectAnswerDto.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\PreguntaJuegoViewModel.cs" />
+    <Compile Include="Models\ViewModels\PreguntaRespuesta\PreguntaRespondidaMultijugadorViewModel.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\PreguntaRespondidaViewModel.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\PreguntaRespuestaABMViewModel.cs" />
+    <Compile Include="Models\ViewModels\PreguntaRespuesta\PreguntaRespuestaDto.cs" />
+    <Compile Include="Models\ViewModels\PreguntaRespuesta\RespuestaDto.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\RespuestaJuegoViewModel.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\RespuestaViewModel.cs" />
     <Compile Include="Models\ViewModels\Usuario\UsuarioABMViewModel.cs" />

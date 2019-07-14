@@ -44,14 +44,15 @@ namespace preguntados_ppodgaiz.Controllers
         //}
         public ActionResult VerificarEstado(Guid idPlayer)
         {
+            Guid idJuego = PlaySingleton.GetInstance.GetIdJuego(idPlayer);
             string estado = PlaySingleton.GetInstance.VerificarEstado(idPlayer);
-            return Json(estado, JsonRequestBehavior.AllowGet);
+            return Json(new { estado = estado, idJuego = idJuego }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult EmpezarPartida(Guid idPlayer)
         {
-            PlaySingleton.GetInstance.EmpezarPartida(idPlayer);
-            return Json("",JsonRequestBehavior.AllowGet);
+            var idJuego = PlaySingleton.GetInstance.EmpezarPartida(idPlayer);
+            return Json(idJuego,JsonRequestBehavior.AllowGet);
         }
 
 

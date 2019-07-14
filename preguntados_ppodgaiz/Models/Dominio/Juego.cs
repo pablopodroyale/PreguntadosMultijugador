@@ -12,15 +12,17 @@ namespace preguntados_ppodgaiz.Models.Dominio
         public List<Pregunta> Preguntas { get; set; }
         public Guid Id { get; set; }
         public bool EnJuego { get; set; } = false;
+        public int CantidadPreguntas { get; set; }
         public Juego()
         {
             Players = new List<Player>();
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
 
         public void setPreguntas(List<Pregunta> preguntas)
         {
             Preguntas = preguntas;
+            CantidadPreguntas = preguntas.Count();
         }
 
         public void setCategoria(Categoria categoria)
@@ -40,6 +42,11 @@ namespace preguntados_ppodgaiz.Models.Dominio
                 item.EnCola = false;
                 item.Jugando = true;
             }
+        }
+
+        public Pregunta GetPreguntaJuego(int nroPreguntaRespondida)
+        {
+            return Preguntas.OrderBy(p => p.Id).ToList()[nroPreguntaRespondida];
         }
     }
 }

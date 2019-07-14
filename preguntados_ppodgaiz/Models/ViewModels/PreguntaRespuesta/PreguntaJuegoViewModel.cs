@@ -10,16 +10,13 @@ namespace preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta
     public class PreguntaJuegoViewModel : EntidadViewModel
     {
         public Guid CategoriaId { get; set; }
-       
+        public Guid PreguntaId { get; set; }
         public List<RespuestaJuegoViewModel> Respuestas { get; set; }
         public Guid Usuarioid { get; set; }
+        public Guid IdJuego { get; set; }
 
-        public PreguntaJuegoViewModel()
-        {
 
-        }
-
-        public PreguntaJuegoViewModel(Pregunta pregunta, Guid usuarioId)
+        public PreguntaJuegoViewModel(Pregunta pregunta, Guid idPlayer, Guid idJuego)
         {
             this.Respuestas = new List<RespuestaJuegoViewModel>();
             this.Id = pregunta.Id;
@@ -27,10 +24,18 @@ namespace preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta
             this.Respuestas = pregunta.Respuestas.Select(p => new RespuestaJuegoViewModel
             {
                 Id = p.Id,
-                Nombre = p.Nombre
+                Nombre = p.Nombre,
+                
             }).ToList();
             this.CategoriaId = pregunta.Categoria.Id;
-            this.Usuarioid = usuarioId;
+            this.Usuarioid = idPlayer;
+            this.IdJuego = idJuego;
+            this.PreguntaId = pregunta.Id;
+        }
+
+        public PreguntaJuegoViewModel(Pregunta preguntaRandom, Guid usuarioId)
+        {
+            Usuarioid = usuarioId;
         }
     }
 }

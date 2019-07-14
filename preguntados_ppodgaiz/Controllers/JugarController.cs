@@ -3,6 +3,7 @@ using preguntados_ppodgaiz.Helpers;
 using preguntados_ppodgaiz.Models;
 using preguntados_ppodgaiz.Models.Dominio;
 using preguntados_ppodgaiz.Models.Enums;
+using preguntados_ppodgaiz.Models.Singleton;
 using preguntados_ppodgaiz.Models.ViewModels.Categoria;
 using preguntados_ppodgaiz.Models.ViewModels.Juego;
 using preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta;
@@ -93,11 +94,58 @@ namespace preguntados_ppodgaiz.Controllers
             return View("Resultados", resultadoWraper);
         }
 
-        public ActionResult JugarMultijugador(Guid idPlayer)
+        public ActionResult JugarMultijugador(string idPlayer, string idJuego)
         {
-            return View();
+            Guid idJugador = new Guid(idPlayer);
+            Guid idGame = new Guid(idJuego);
+            var juego = PlaySingleton.GetInstance.GetJuego(idGame);
+            var player = PlaySingleton.GetInstance.GetPlayer(idJugador);
+            //Cantidad a contestar
+            int cantidadAContestar = juego.CantidadPreguntas;
+            //cuantas contesto
+            int cantidadContestadas = player.NroPreguntaRespondida;
+            //que tiene el juego menos las que contesto
+            if (cantidadContestadas < (cantidadAContestar - 1))
+            {
+                Pregunta pregunta = juego.GetPreguntaJuego(player.NroPreguntaRespondida);
+                PreguntaJuegoViewModel model = new PreguntaJuegoViewModel(pregunta, idJugador, idGame);
+
+                return View("JugarMultiJugador", model);
+            }
+            //int cantidadCorrectas = repoPreguntasRespondidas.TraerTodos().Count(p => p.Respuesta.EsCorrecta);
+            //var resultados = repoPreguntasRespondidas.TraerTodos().Where(p => p.Usuario.ApplicationUser.Id == userId && p.Categoria.Id == categoriaSeleccionada.Id).Select(r => new ResultadoJuegoViewModel
+            //{
+            //    Id = r.Id,
+            //    Nombre = r.Pregunta.Nombre,
+            //    CategoriaId = r.Categoria.Id,
+            //    Usuarioid = r.Usuario.Id,
+            //    RespuestaContestada = r.Respuesta.Id,
+            //    RespuestaCorrecta = r.Pregunta.Respuestas.Where(q => q.EsCorrecta).FirstOrDefault().Id,
+            //    //Resultado = cantidadCorrectas + "/" + cantidadAContestar,
+            //    Respuestas = r.Pregunta.Respuestas.Select(p => new RespuestaResultadoViewModel
+            //    {
+            //        Id = p.Id,
+            //        Nombre = p.Nombre,
+            //        EsCorrecta = p.EsCorrecta
+            //    }).ToList()
+            //}).ToList();
+            //ResultadoWraperJuegoViewModel resultadoWraper = new ResultadoWraperJuegoViewModel();
+            //resultadoWraper.Resultado = resultados;
+            //resultadoWraper.Score = cantidadCorrectas + "/" + cantidadAContestar;
+            //return View("Resultados", resultadoWraper);
+            return null;
         }
 
+        [HttpPost]
+        public ActionResult SaveMultijugador(PreguntaRespondidaMultijugadorViewModel model)
+        {
+            var juego = PlaySingleton.GetInstance.GetJuego(model.JuegoId);
+            var player = PlaySingleton.GetInstance.GetPlayer(model.PlayerId);
+            player.NroPreguntaRespondida = player.NroPreguntaRespondida + 1;
+            var respuestaCorrectaId = juego.Preguntas.Where(p => p.Id == model.PreguntaId).FirstOrDefault().Respuestas.Where(r => r.EsCorrecta).FirstOrDefault().Id;
+            //LoggerEventos.LogearEvento("Pregunta respondida: " + model.Nombre, User.Identity.GetUserId(), model.Id, AccionesLogEnum.RESPONDER_PREGUNTA, EntidadLogEnum.PREGUNTA_RESPONDIDA);
+            return Json(respuestaCorrectaId, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult Save(PreguntaRespondidaViewModel model)
@@ -107,7 +155,7 @@ namespace preguntados_ppodgaiz.Controllers
             PreguntasRespondidas preguntaRespondida = new PreguntasRespondidas(model, db);
             repoPreguntaRespondida.Crear(preguntaRespondida);
             var respuestaCorrectaId = repoPregunta.TraerTodos().Where(p => p.Id == model.Id).FirstOrDefault().Respuestas.Where(r => r.EsCorrecta).FirstOrDefault().Id;
-            LoggerEventos.LogearEvento("Pregunta respondida: " + model.Nombre, User.Identity.GetUserId(), model.Id, AccionesLogEnum.RESPONDER_PREGUNTA, EntidadLogEnum.PREGUNTA_RESPONDIDA);
+            //LoggerEventos.LogearEvento("Pregunta respondida: " + model.Nombre, User.Identity.GetUserId(), model.Id, AccionesLogEnum.RESPONDER_PREGUNTA, EntidadLogEnum.PREGUNTA_RESPONDIDA);
             return Json(respuestaCorrectaId, JsonRequestBehavior.AllowGet);
         }
     }

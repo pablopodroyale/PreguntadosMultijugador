@@ -180,7 +180,7 @@
                  data: {idPlayer :'@Model.Usuario.Id'},
                 url: '@Url.Action("EmpezarPartida", "Lobby")',
                 success: function (data) {
-                    window.location.href = '@Url.Action("JugarMultijugador","Jugar")?idPlayer=' + data ;
+                    window.location.href = '@Url.Action("JugarMultijugador","Jugar")?idPlayer=' + '@Model.Usuario.Id' + '&idJuego=' + data;
                 }
             });
         });
@@ -192,15 +192,15 @@
                 data: {idPlayer: '@Model.Usuario.Id'},
                 url: '@Url.Action("VerificarEstado", "Lobby")',
                 success: function (data) {
-                    if (data == "encola") {
+                    if (data.estado == "encola") {
                         console.log("encola");
                     }
-                    if (data == "jugando") {
-                        window.location.href = '@Url.Action("JugarMultijugador","Jugar")';
+                    if (data.estado == "jugando") {
+                        window.location.href = '@Url.Action("JugarMultijugador","Jugar")?idPlayer=' + '@Model.Usuario.Id' + '&idJuego=' + data.idJuego ;
                     }
                 }
             });
-        }, 4000);
+        }, 7000);
 
 
         window.setInterval(function () {

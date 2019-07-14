@@ -57,6 +57,14 @@ namespace preguntados_ppodgaiz.Models.Singleton
             }
         }
 
+        public Guid GetIdJuego(Guid idPlayer)
+        {
+
+            var juego = juegos.Where(j => j.Players.Any(p => p.Usuario.Id == idPlayer)).FirstOrDefault();
+            return juego != null ? juego.Id : Guid.Empty;
+
+        }
+
         public void SetOwner(Guid id)
         {
             var player = players.Where(p => p.Usuario.Id == id).FirstOrDefault();
@@ -94,7 +102,7 @@ namespace preguntados_ppodgaiz.Models.Singleton
             juegos.Add(juego);
         }
 
-        public void EmpezarPartida(Guid idPlayer)
+        public Guid EmpezarPartida(Guid idPlayer)
         {
             var owner = juegos.SelectMany(j => j.Players.Where(p => p.Usuario.Id == idPlayer)).FirstOrDefault();
             Juego juego = null;
@@ -104,8 +112,18 @@ namespace preguntados_ppodgaiz.Models.Singleton
                 juego.EnJuego = true;
                 juego.setEnJuego();
             }
+            return juego.Id;
 
+        }
 
+        public Juego GetJuego(Guid idJuego)
+        {
+            return juegos.Where(j => j.Id == idJuego).FirstOrDefault();
+        }
+
+        public Player GetPlayer(Guid idJugador)
+        {
+           return players.Where(p => p.Usuario.Id == idJugador).FirstOrDefault();
         }
     }
 }

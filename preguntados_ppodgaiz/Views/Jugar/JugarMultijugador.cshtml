@@ -1,7 +1,7 @@
-﻿@*@model preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta.PreguntaJuegoViewModel*@
+﻿@model preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta.PreguntaJuegoViewModel
 @{
     ViewBag.Title = "Juego";
-    //int cont = 1;
+    int cont = 1;
     //Guid esCorrecta = Model.Respuestas.Where(p);
 }
 
@@ -26,17 +26,17 @@
         <div class="page-content-card p-10" style="background-image: url('../../Content/Images/question3.jpg');background-repeat:round;background-attachment: fixed; background-position: center; ">
             <div class="form-row mt-2">
                 <div class="card border-info mb-3 offset-sm-1" style="width:200rem;">
-                    <div style="font-family:cursive; font-weight: bold;" class="card-header align-content-center text-uppercase">Pregunta: @Model.Nombre </div>
-                    @*@foreach (var item in Model.Respuestas)
+                    <div style="font-family:cursive; font-weight: bold;" class="card-header align-content-center text-uppercase">Pregunta:</div>
+                    @foreach (var item in Model.Respuestas)
                         {
                            <div class="card-body text-info align-content-around" style="font-family:cursive">
                                <h6 class="card-text a-align-center">Respuesta  @cont</h6>
                                <button class="btn btn-lg btn-block btn-default btnSaveRespuesta" dis id="@item.Id" >@item.Nombre</button>
-                               @*btn btn-large btn-block btn-default*
+                               btn btn-large btn-block btn-default*
                            </div>
 
                            cont = cont + 1;
-                         }*@
+                         }
                 </div>
                 <div class="col-md-6 form-group">
 
@@ -51,7 +51,7 @@
 
     $(document).ready(function () {
 
-        @*function mostrarResultados(correcta) {
+        function mostrarResultados(correcta) {
 
             if (id == correcta) {
                 $('#' + id).addClass("btn-success");
@@ -62,34 +62,34 @@
         }
 
         function Redirigir() {
-            window.location.href = '@Url.Action("Jugar", "Jugar")?id=' + '@Model.CategoriaId';
+            window.location.href = '@Url.Action("JugarMultiJugador", "Jugar")?idPlayer=' + '@Model.Usuarioid' + '&idJuego=' + '@Model.IdJuego';
         }
 
         var id ="";
         $(".btnSaveRespuesta").click(function () {
             id = $(this).attr('id');
             var respuesta = {
-                Id: '@Model.Id',
-                Nombre: '@Model.Nombre',
-                CategoriaId: '@Model.CategoriaId',
+                Id: @Model.Id,
+                JuegoId: '@Model.IdJuego',
                 RespuestaSeleccionadaId: $(this).attr('id'),
-                UsuarioId: '@Model.Usuarioid'
+                UsuarioId: @Model.Usuarioid,
+                PlayerId: @Model.Usuarioid,
+                PreguntaId : @Model.
             }
             $.ajax({
                 type: "Post",
-                url: '@Url.Action("Save","Jugar")',
+                url: '@Url.Action("SaveMultijugador","Jugar")',
                 data: { model: respuesta },
                 success: function (data) {
-
                     mostrarResultados(data);
                     setTimeout(
                         Redirigir, 3000);
                 }
             });
-        })*@
+        })
 
         @*function mostrarResultados(id) {
-            if (id == @Model.Respuestas.Where(r => r.EsCorrecta)) {
+            if (id == @Model.Respuestas.Where(r => r.EsCorrecta).FirstOrDefault().Id) {
                 $(this).AddClass('btn-Success');
             }
         }*@
