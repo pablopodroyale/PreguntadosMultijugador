@@ -55,14 +55,57 @@ namespace preguntados_ppodgaiz.Models.Dominio
             return Players.Where(p => p.Usuario.Id == idPlayer).FirstOrDefault();
         }
 
-        public ResultadoMultijugadorViewModel GetResultados()
+        //public ResultadoMultijugadorViewModel GetResultadosPorJugador()
+        //{
+        //    ResultadoMultijugadorViewModel model = new ResultadoMultijugadorViewModel();
+        //    model.Categoria = Categoria.Nombre;
+        //    ResultadoPorJugadorViewModel resultadoPorJugadorViewModel = new ResultadoPorJugadorViewModel();
+        //    foreach (var item in Players)
+        //    {
+        //        item.PreguntaRespuestas.Select(p => p.Respuestas.Select(r => ResultadoPorJugadorViewModel(){
+
+        //        }));
+        //    }
+
+        //    return model;
+        //}
+
+        public bool VerificarFinal()
+        {
+            int cantJugadores = Players.Count();
+            int cantidadTerminaron = 0;
+            foreach (var item in Players)
+            {
+                if (item.NroPreguntaRespondida == (CantidadPreguntas - 1))
+                {
+                    cantidadTerminaron++;
+                }
+            }
+
+            return cantidadTerminaron == cantJugadores;
+        }
+
+        public  ResultadoMultijugadorViewModel GetResultados()
         {
             ResultadoMultijugadorViewModel model = new ResultadoMultijugadorViewModel();
             model.Categoria = Categoria.Nombre;
-            foreach (var item in Players)
-            {
-                
-            }
+            var resultadosPorJugador = Players.SelectMany(p => p.PreguntaRespuestas.Select(r =>  new ResultadoPorJugadorViewModel() {
+                IdPlayer = r.PlayerId,
+                Respuestas = r.Respuestas.Select(t => new RespuestaResultadoViewModel() {
+                    IdRespuesta = t.IdRespuesta,
+                    RespuestaSeleccionada = t.RespuestaSeleccionada,
+                    TextoRespuesta = t.TextoRespuesta
+                }).ToList()
+            })).ToList();
+            //trear las preguntas y la respues contestada
+
+            return model;
+        }
+
+        public Guid getRespuestaCorrecta(Guid preguntaId)
+        {
+            var correcta = Preguntas.SelectMany(p => p.Respuestas.Where(r => r.EsCorrecta)).FirstOrDefault().Id;
+            return correcta;
         }
     }
 }

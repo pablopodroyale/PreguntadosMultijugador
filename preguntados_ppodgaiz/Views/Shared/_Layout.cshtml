@@ -179,7 +179,7 @@
                         @if (Request.IsAuthenticated && !User.IsInRole("Administrador"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link ripple @(url.Equals("/Jugar/Index") ? "active" : "")" href="/Jugar/Index">
+                                <a class="nav-link ripple @(url.Equals("/Lobby/Lobby") ? "active" : "")" href="/Lobby/Lobby">
                                     <i class="icon s-4 icon-ninja"></i>
                                     <span>Jugar</span>
                                 </a>

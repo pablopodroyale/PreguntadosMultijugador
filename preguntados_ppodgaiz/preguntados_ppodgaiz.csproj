@@ -301,9 +301,12 @@
     <Compile Include="Models\ViewModels\PreguntaRespuesta\PreguntaRespondidaViewModel.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\PreguntaRespuestaABMViewModel.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\PreguntaRespuestaDto.cs" />
+    <Compile Include="Models\ViewModels\PreguntaRespuesta\PreguntaRespuestaRespondidaPlayerViewModel.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\RespuestaDto.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\RespuestaJuegoViewModel.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\RespuestaViewModel.cs" />
+    <Compile Include="Models\ViewModels\Resultado\PreguntaRespuestaResultadoViewModel.cs" />
+    <Compile Include="Models\ViewModels\Resultado\RespuestaResultadoViewModel.cs" />
     <Compile Include="Models\ViewModels\Resultado\ResultadoMultijugadorViewModel.cs" />
     <Compile Include="Models\ViewModels\Resultado\ResultadoPorJugadorViewModel.cs" />
     <Compile Include="Models\ViewModels\Usuario\UsuarioABMViewModel.cs" />
@@ -8164,6 +8167,7 @@
     <Content Include="Views\Lobby\Ingresar.cshtml" />
     <Content Include="Views\Lobby\Lobby.cshtml" />
     <Content Include="Views\Jugar\JugarMultijugador.cshtml" />
+    <Content Include="Views\Jugar\ResultadosMultijugador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

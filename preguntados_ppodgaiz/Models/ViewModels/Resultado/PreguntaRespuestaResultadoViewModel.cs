@@ -1,14 +1,14 @@
-﻿using preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace preguntados_ppodgaiz.Models.ViewModels.Resultado
 {
-    public class ResultadoPorJugadorViewModel
+    public class PreguntaRespuestaResultadoViewModel
     {
-        public Guid IdPlayer { get; set; }
+        public Guid IdPregunta { get; set; }
+        public string TextoPregunta{ get; set; }
         public List<RespuestaResultadoViewModel> Respuestas { get; set; }
     }
 }

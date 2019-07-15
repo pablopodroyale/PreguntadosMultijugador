@@ -10,6 +10,9 @@ namespace preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta
         public Guid PlayerId { get; set; }
         public int NroPreguntarespondida { get; set; } = 0;
         public List<RespuestaDto> Respuestas { get; set; }
-       
+        public PreguntaRespuestaDto()
+        {
+            Respuestas = new List<RespuestaDto>();
+        }
     }
 }

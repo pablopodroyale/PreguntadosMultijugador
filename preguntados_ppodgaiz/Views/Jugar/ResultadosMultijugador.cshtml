@@ -1,0 +1,113 @@
+﻿@model Guid
+
+@{
+    ViewBag.Title = "Resultados";
+    int cont = 1;
+}
+
+<div class="page-layout carded full-width single-scroll">
+
+    <div class="top-bg bg-deep-purple-100 "></div>
+
+    <!-- CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- HEADER -->
+        <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
+            <!-- APP TITLE -->
+            <div class="col-12 col-sm">
+                <h4 class="col-md-6 offset-4">Resultados</h4>
+            </div>
+            <button type="button" class="btn btn-icon">
+                <i class="icon icon-magnify"></i>
+            </button>
+        </div>
+
+        <!-- / HEADER -->
+        <div class="page-content-card p-10" id="idResultados">
+            @*<div class="form-row mt-2">
+                    @foreach (var item in Model.Resultado)
+                    {
+                        <div class="card border-info mb-3 offset-sm-1 animated fadeInLeft" style="width:200rem;">
+                            <div style="font-family:cursive; font-weight: bold;" class="card-header align-content-center text-uppercase">Pregunta: @item.Nombre </div>
+                            <div class="card-body text-info align-content-around" style="font-family:cursive">
+                                @foreach (var respuesta in item.Respuestas)
+                                {
+                                    <h6 class="card-text a-align-center">Respuesta  @cont</h6>
+                                    if (respuesta.Id == item.RespuestaContestada && respuesta.EsCorrecta)
+                                    {
+                                        <button class="btn btn-lg btn-block btn-success" id="@respuesta.Id">@respuesta.Nombre</button>
+                                    }
+                                    else if (respuesta.Id == item.RespuestaContestada && !respuesta.EsCorrecta)
+                                    {
+
+                                        <button class="btn btn-lg btn-block btn-danger" id="@respuesta.Id">@respuesta.Nombre</button>
+
+                                    }
+                                    else if (respuesta.Id == item.RespuestaCorrecta)
+                                    {
+                                        <button class="btn btn-lg btn-block btn-success" id="@respuesta.Id">@respuesta.Nombre</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-lg btn-block btn-default" id="@respuesta.Id">@respuesta.Nombre</button>
+                                    }
+                                    cont = cont + 1;
+                                }
+                                @{cont = 1;}
+                            </div>
+                        </div>
+                    }
+
+                </div>*@
+            @*<div class="form-row mt-2">
+                    <div class="col-md-10 offset-sm-1 form-group animated zoomIn ">
+                        <div style="height:200px;width:100%;background-color:cadetblue;border-radius:5px;text-align:center;text-shadow: 3px 2px white;box-shadow: 10px 5px 5px black;">
+                            <label style="font-size:500%;font-family:fantasy;">Score:@Model.Score</label>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        window.setInterval(function () {
+            $.ajax({
+                type: "GET",
+                data: {idJuego : '@Model'},
+                url: '@Url.Action("VerificarFinal", "Jugar")',
+                success: function (data) {
+                    if (data == true) {
+                        $.ajax({
+                            type: "GET",
+                            url: '@Url.Action("GetResultados","Jugar")',
+                            data: { model: respuesta },
+                            success: function (data) {
+
+                                mostrarResultados(data);
+                                setTimeout(
+                                    Redirigir, 3000);
+                            }
+                        });
+                    } else {
+                        console.log("sa");
+                    }
+                    //var html = "";
+                    //if (data != null) {
+                    //    for (var i = 0; i < data.length; i++) {
+                    //        html +=
+                    //        '<tr id="rowJugadores'+ data[i].Usuario.Id +'">' +
+                    //        ' <td>' + data[i].Usuario.Nombre + '</td>' +
+                    //        ' <td> <button id="' + data[i].Usuario.Id + '" data-nombre="' +data[i].Usuario.Nombre + '" class="btn bg-deep-orange text-white btn-block btnAgregarJugador">Agregar</button></td>' +
+                    //        '</tr>';
+                    //        }
+                    //        $("#idTbodyJugadores").html(html);
+                    //        refrescarClicksAgregarJugador();
+                    //    }
+                    }
+            });
+
+        }, 4000);
+    })
+</script>

@@ -82,7 +82,7 @@ namespace preguntados_ppodgaiz.Controllers
                 RespuestaContestada = r.Respuesta.Id,
                 RespuestaCorrecta = r.Pregunta.Respuestas.Where(q => q.EsCorrecta).FirstOrDefault().Id,
                 //Resultado = cantidadCorrectas + "/" + cantidadAContestar,
-                Respuestas = r.Pregunta.Respuestas.Select(p => new RespuestaResultadoViewModel
+                Respuestas = r.Pregunta.Respuestas.Select(p => new Models.ViewModels.Juego.RespuestaResultadoViewModel
                 {
                     Id = p.Id,
                     Nombre = p.Nombre,
@@ -114,11 +114,11 @@ namespace preguntados_ppodgaiz.Controllers
                 return View("JugarMultiJugador", model);
             }
 
-            var resultados = juego.GetResultados();
+            //var resultados = juego.GetResultadosPorJugador();
             //ResultadoWraperJuegoViewModel resultadoWraper = new ResultadoWraperJuegoViewModel();
             //resultadoWraper.Resultado = resultados;
             //resultadoWraper.Score = cantidadCorrectas + "/" + cantidadAContestar;
-            return View("ResultadosMultijugador", resultados);
+            return View("ResultadosMultijugador", idGame);
         }
 
         [HttpPost]
@@ -126,7 +126,8 @@ namespace preguntados_ppodgaiz.Controllers
         {
             var juego = PlaySingleton.GetInstance.GetJuego(model.JuegoId);
             var player = juego.GetPlayer(model.PlayerId);
-            player.SetRespuestaSeleccionada(model.PreguntaId ,model.RespuestaSeleccionadaId);
+            var preguntaCorrectaId = juego.getRespuestaCorrecta(model.PreguntaId);
+            player.SetRespuestaSeleccionada(model.PreguntaId,preguntaCorrectaId,model.RespuestaSeleccionadaId);
             player.NroPreguntaRespondida = player.NroPreguntaRespondida + 1;
             var respuestaCorrectaId = juego.Preguntas.Where(p => p.Id == model.PreguntaId).FirstOrDefault().Respuestas.Where(r => r.EsCorrecta).FirstOrDefault().Id;
             //LoggerEventos.LogearEvento("Pregunta respondida: " + model.Nombre, User.Identity.GetUserId(), model.Id, AccionesLogEnum.RESPONDER_PREGUNTA, EntidadLogEnum.PREGUNTA_RESPONDIDA);
@@ -143,6 +144,22 @@ namespace preguntados_ppodgaiz.Controllers
             var respuestaCorrectaId = repoPregunta.TraerTodos().Where(p => p.Id == model.Id).FirstOrDefault().Respuestas.Where(r => r.EsCorrecta).FirstOrDefault().Id;
             //LoggerEventos.LogearEvento("Pregunta respondida: " + model.Nombre, User.Identity.GetUserId(), model.Id, AccionesLogEnum.RESPONDER_PREGUNTA, EntidadLogEnum.PREGUNTA_RESPONDIDA);
             return Json(respuestaCorrectaId, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public ActionResult VerificarFinal(Guid idJuego)
+        {
+            var juego = PlaySingleton.GetInstance.GetJuego(idJuego);
+            var final = juego.VerificarFinal();
+            return Json(final, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetResultados(Guid idJuego)
+        {
+            var juego = PlaySingleton.GetInstance.GetJuego(idJuego);
+            var resultados = juego.GetResultados();
+            return Json(resultados, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

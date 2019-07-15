@@ -21,10 +21,16 @@ namespace preguntados_ppodgaiz.Models.Dominio
             Usuario = usuario;
         }
 
-        public void SetRespuestaSeleccionada(Guid idPregunta ,Guid respuestaSeleccionadaId)
+        public void SetRespuestaSeleccionada(Guid idPregunta ,Guid idRespuesta, Guid respuestaSeleccionadaId)
         {
-            var preguntaRespuesta = PreguntaRespuestas.SelectMany(p => p.Respuestas.Where(r => r.IdPregunta == idPregunta)).FirstOrDefault();
-            preguntaRespuesta.RespuestaSeleccionada = respuestaSeleccionadaId;
+            var respuesta = new PreguntaRespuestaRespondidaPlayerViewModel() {
+                IdPregunta = idPregunta,
+                IdRespuesta =  idRespuesta,
+                IdRespuestaSeleccionada = respuestaSeleccionadaId
+            };
+           // PreguntaRespuestas.Add(respuesta);
+
+
         }
     }
 }
