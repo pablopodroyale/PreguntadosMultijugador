@@ -28,15 +28,15 @@
                 <div class="card border-info mb-3 offset-sm-1" style="width:200rem;">
                     <div style="font-family:cursive; font-weight: bold;" class="card-header align-content-center text-uppercase">Pregunta: @Model.Nombre</div>
                     @foreach (var item in Model.Respuestas)
-                        {
-                           <div class="card-body text-info align-content-around" style="font-family:cursive">
-                               <h6 class="card-text a-align-center">Respuesta  @cont</h6>
-                               <button class="btn btn-lg btn-block btn-default btnSaveRespuesta" dis id="@item.Id" >@item.Nombre</button>
-                             
-                           </div>
+                    {
+                        <div class="card-body text-info align-content-around" style="font-family:cursive">
+                            <h6 class="card-text a-align-center">Respuesta  @cont</h6>
+                            <button class="btn btn-lg btn-block btn-default btnSaveRespuesta" dis id="@item.Id">@item.Nombre</button>
 
-                           cont = cont + 1;
-                         }
+                        </div>
+
+                        cont = cont + 1;
+                    }
                 </div>
                 <div class="col-md-6 form-group">
 
@@ -86,8 +86,7 @@
                 UsuarioId: '@Model.Usuarioid',
                 PlayerId: '@Model.Usuarioid',
                 PreguntaId: '@Model.PreguntaId',
-                TextoPregunta : '@Model.Nombre'
-                @*RespuestaId: '@Model.'*@
+                TextoPregunta : '@Model.Nombre.ToString()'
             }
             $.ajax({
                 type: "Post",
@@ -116,7 +115,7 @@
                         window.location.href = '@Url.Action("ResultadosMultijugador", "Jugar")?idJuego=' + '@Model.IdJuego' ;
                     } else {
                         console.log("sa");
-                    }   
+                    }
                 }
             });
 

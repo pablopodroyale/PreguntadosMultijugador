@@ -112,7 +112,7 @@ namespace preguntados_ppodgaiz.Controllers
             return View("JugarMultiJugador", model);
         }
 
-        [HttpPost]
+        [HttpPost,ValidateInput(false)]
         public ActionResult SaveMultijugador(PreguntaRespondidaMultijugadorViewModel model)
         {
             var juego = PlaySingleton.GetInstance.GetJuego(model.JuegoId);
