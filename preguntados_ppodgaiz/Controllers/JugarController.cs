@@ -106,20 +106,10 @@ namespace preguntados_ppodgaiz.Controllers
             int cantidadAContestar = juego.CantidadPreguntas;
             //cuantas contesto
             int cantidadContestadas = player.NroPreguntaRespondida;
-            //que tiene el juego menos las que contesto
-            //if (cantidadContestadas < (cantidadAContestar - 1))
-            //{
             Pregunta pregunta = juego.GetPreguntaJuego(player.NroPreguntaRespondida);
             PreguntaJuegoViewModel model = new PreguntaJuegoViewModel(pregunta, idJugador, idGame);
 
             return View("JugarMultiJugador", model);
-            //}
-
-            //var resultados = juego.GetResultadosPorJugador();
-            //ResultadoWraperJuegoViewModel resultadoWraper = new ResultadoWraperJuegoViewModel();
-            //resultadoWraper.Resultado = resultados;
-            //resultadoWraper.Score = cantidadCorrectas + "/" + cantidadAContestar;
-            //return Json("ResultadosMultijugador", idGame);
         }
 
         [HttpPost]
@@ -130,7 +120,6 @@ namespace preguntados_ppodgaiz.Controllers
             var respuestaCorrectaId = juego.getRespuestaCorrecta(model.PreguntaId);
             var pregunta = player.SetRespuestaSeleccionada(model.PreguntaId,model.RespuestaId,model.RespuestaSeleccionadaId ,respuestaCorrectaId, model.TextoPregunta);
             pregunta.Respuestas = juego.GetRespuestasPorPregunta(model.PreguntaId);
-            //var respuestaCorrectaId = juego.Preguntas.Where(p => p.Id == model.PreguntaId).FirstOrDefault().Respuestas.Where(r => r.EsCorrecta).FirstOrDefault().Id;
             bool respuestaFinal = juego.CantidadPreguntas - 1 == player.NroPreguntaRespondida;
             if (!respuestaFinal)
             {

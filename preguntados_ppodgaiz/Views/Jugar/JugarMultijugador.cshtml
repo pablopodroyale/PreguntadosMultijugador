@@ -32,7 +32,7 @@
                            <div class="card-body text-info align-content-around" style="font-family:cursive">
                                <h6 class="card-text a-align-center">Respuesta  @cont</h6>
                                <button class="btn btn-lg btn-block btn-default btnSaveRespuesta" dis id="@item.Id" >@item.Nombre</button>
-                               btn btn-large btn-block btn-default*
+                             
                            </div>
 
                            cont = cont + 1;
@@ -63,6 +63,15 @@
                 Redirigir, 3000);
         }
 
+        function mostrarResultadosFinal(correcta) {
+             if (id == correcta) {
+                $('#' + id).addClass("btn-success");
+            } else {
+                $('#' + id).addClass("btn-danger")
+                $('#' + correcta).addClass("btn-success")
+            }
+        }
+
         function Redirigir() {
             window.location.href = '@Url.Action("JugarMultiJugador", "Jugar")?idPlayer=' + '@Model.Usuarioid' + '&idJuego=' + '@Model.IdJuego';
         }
@@ -77,6 +86,7 @@
                 UsuarioId: '@Model.Usuarioid',
                 PlayerId: '@Model.Usuarioid',
                 PreguntaId: '@Model.PreguntaId',
+                TextoPregunta : '@Model.Nombre'
                 @*RespuestaId: '@Model.'*@
             }
             $.ajax({
@@ -85,9 +95,9 @@
                 data: { model: respuesta },
                 success: function (data) {
                     if (data.final) {
+                        mostrarResultadosFinal(data.idCorrecta);
                         VerificarFinal();
                     } else {
-                       
                         mostrarResultados(data.idCorrecta);
                     }
                 }
@@ -106,7 +116,7 @@
                         window.location.href = '@Url.Action("ResultadosMultijugador", "Jugar")?idJuego=' + '@Model.IdJuego' ;
                     } else {
                         console.log("sa");
-                    }
+                    }   
                 }
             });
 

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Resultados";
     int cont = 1;
+    int score = 0;
 }
 
 <div class="page-layout carded full-width single-scroll">
@@ -26,6 +27,7 @@
         {
             <div class="page-content-card p-10" id="idResultados">
                 <div class="form-row mt-2">
+                    <h3>@("Jugador: " + item.NickPlayer)</h3>
                     @foreach (var pregunta in item.Preguntas)
                     {
                         <div class="card border-info mb-3 offset-sm-1 animated fadeInLeft" style="width:200rem;">
@@ -46,6 +48,7 @@
                                     }
                                     else if (respuesta.IdRespuesta == pregunta.RespuestaCorrecta)
                                     {
+                                        @score = score + 1;
                                         <button class="btn btn-lg btn-block btn-success" id="@respuesta.IdRespuesta">@respuesta.TextoRespuesta</button>
                                     }
                                     else
@@ -63,7 +66,8 @@
                 <div class="form-row mt-2">
                     <div class="col-md-10 offset-sm-1 form-group animated zoomIn ">
                         <div style="height:200px;width:100%;background-color:cadetblue;border-radius:5px;text-align:center;text-shadow: 3px 2px white;box-shadow: 10px 5px 5px black;">
-                            <label style="font-size:500%;font-family:fantasy;">Score:@Model.Score</label>
+                            <label style="font-size:500%;font-family:fantasy;">Score:@(score + "/4")</label>
+                            @score = 0;
                         </div>
                     </div>
                 </div>

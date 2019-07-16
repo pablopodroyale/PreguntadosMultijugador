@@ -33,7 +33,6 @@ namespace preguntados_ppodgaiz.Models.Dominio
                 RespuestaCorrecta = idRespuestaCorrecta,
                 IdPregunta = idPregunta,
                 TextoPregunta = TextoPregunta
-                
             };
             PreguntaRespuestas.Add(preguntaRespuestaDto);
 

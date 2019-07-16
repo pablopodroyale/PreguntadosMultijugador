@@ -90,21 +90,22 @@ namespace preguntados_ppodgaiz.Models.Dominio
         {
             ResultadoMultijugadorViewModel model = new ResultadoMultijugadorViewModel();
             model.Categoria = Categoria.Nombre;
-            var resultadosPorJugador = Players.SelectMany(p => p.PreguntaRespuestas.Select(r =>  new ResultadoPorJugadorViewModel() {
-                IdPlayer = r.PlayerId,
-                NickPlayer = p.Usuario.NickName,
-                Preguntas = r.Respuestas.Select(t => new PreguntaRespuestaMultijugadorResultadoViewModel() {
+            var resultadosPorJugador = Players.Select(p => new ResultadoPorJugadorViewModel() {
+                IdPlayer = p.Usuario.Id,
+                NickPlayer = p.Usuario.Nombre,
+                Preguntas = p.PreguntaRespuestas.Select(t => new PreguntaRespuestaMultijugadorResultadoViewModel() {
                     IdPregunta = t.IdPregunta,
                     TextoPregunta = t.TextoPregunta,
+                    RespuestaCorrecta = t.RespuestaCorrecta,
                     RespuestaSeleccionada = t.RespuestaSeleccionada,
-                    RespuestaCorrecta = t.RespuestaCorrectaId,
-                    Respuestas = Preguntas.Where(w => w.Id == t.IdPregunta).SelectMany(s => s.Respuestas.Select(q => new RespuestaResultadoMultijugadorViewModel() {
-                        IdRespuesta = q.Id,
-                        TextoRespuesta =q.Nombre,
-                        EsCorrecta = q.EsCorrecta
-                    })).ToList()
+                    Respuestas = t.Respuestas.Select(s => new RespuestaResultadoMultijugadorViewModel() {
+                        IdRespuesta = s.IdRespuesta,
+                        TextoRespuesta = s.TextoRespuesta,
+                        EsCorrecta = s.RespuestaCorrecta
+                    }).ToList()
                 }).ToList()
-            })).ToList();
+            }).ToList();
+            model.ResultadosPorJugador = resultadosPorJugador;
             //trear las preguntas y la respues contestada
 
             return model;
@@ -120,7 +121,9 @@ namespace preguntados_ppodgaiz.Models.Dominio
         {
             List<RespuestaDto> respuestas = new List<RespuestaDto>();
             respuestas = Preguntas.Where(p => p.Id == preguntaId).FirstOrDefault().Respuestas.Select(s => new RespuestaDto() {
-                
+                IdRespuesta = s.Id,
+                TextoRespuesta = s.Nombre,
+                RespuestaCorrecta = s.EsCorrecta
             }).ToList();
             return respuestas;
         }
