@@ -306,7 +306,8 @@
     <Compile Include="Models\ViewModels\PreguntaRespuesta\RespuestaJuegoViewModel.cs" />
     <Compile Include="Models\ViewModels\PreguntaRespuesta\RespuestaViewModel.cs" />
     <Compile Include="Models\ViewModels\Resultado\PreguntaRespuestaResultadoViewModel.cs" />
-    <Compile Include="Models\ViewModels\Resultado\RespuestaResultadoViewModel.cs" />
+    <Compile Include="Models\ViewModels\Resultado\PreguntaRespuestaMultijugadorResultadoViewModel.cs" />
+    <Compile Include="Models\ViewModels\Resultado\RespuestaResultadoMultijugadorViewModel.cs" />
     <Compile Include="Models\ViewModels\Resultado\ResultadoMultijugadorViewModel.cs" />
     <Compile Include="Models\ViewModels\Resultado\ResultadoPorJugadorViewModel.cs" />
     <Compile Include="Models\ViewModels\Usuario\UsuarioABMViewModel.cs" />

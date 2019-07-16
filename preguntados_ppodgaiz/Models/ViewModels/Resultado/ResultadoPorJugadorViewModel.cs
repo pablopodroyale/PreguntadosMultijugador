@@ -9,6 +9,7 @@ namespace preguntados_ppodgaiz.Models.ViewModels.Resultado
     public class ResultadoPorJugadorViewModel
     {
         public Guid IdPlayer { get; set; }
-        public List<RespuestaResultadoViewModel> Respuestas { get; set; }
+        public string NickPlayer { get; set; }
+        public List<PreguntaRespuestaMultijugadorResultadoViewModel> Preguntas { get; set; }
     }
 }

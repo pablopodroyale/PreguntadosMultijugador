@@ -9,10 +9,12 @@ namespace preguntados_ppodgaiz.Models.ViewModels.Resultado
     public class ResultadoMultijugadorViewModel
     {
         public string Categoria { get; set; }
-        public ResultadoPorJugadorViewModel ResultadosPorJugador { get; set; }
+        public List<ResultadoPorJugadorViewModel> ResultadosPorJugador { get; set; }
+        public string Score { get; set; }
 
         public ResultadoMultijugadorViewModel()
         {
+            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using preguntados_ppodgaiz.Models.ViewModels.Resultado;
+﻿using preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta;
+using preguntados_ppodgaiz.Models.ViewModels.Resultado;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,10 +92,17 @@ namespace preguntados_ppodgaiz.Models.Dominio
             model.Categoria = Categoria.Nombre;
             var resultadosPorJugador = Players.SelectMany(p => p.PreguntaRespuestas.Select(r =>  new ResultadoPorJugadorViewModel() {
                 IdPlayer = r.PlayerId,
-                Respuestas = r.Respuestas.Select(t => new RespuestaResultadoViewModel() {
-                    IdRespuesta = t.IdRespuesta,
+                NickPlayer = p.Usuario.NickName,
+                Preguntas = r.Respuestas.Select(t => new PreguntaRespuestaMultijugadorResultadoViewModel() {
+                    IdPregunta = t.IdPregunta,
+                    TextoPregunta = t.TextoPregunta,
                     RespuestaSeleccionada = t.RespuestaSeleccionada,
-                    TextoRespuesta = t.TextoRespuesta
+                    RespuestaCorrecta = t.RespuestaCorrectaId,
+                    Respuestas = Preguntas.Where(w => w.Id == t.IdPregunta).SelectMany(s => s.Respuestas.Select(q => new RespuestaResultadoMultijugadorViewModel() {
+                        IdRespuesta = q.Id,
+                        TextoRespuesta =q.Nombre,
+                        EsCorrecta = q.EsCorrecta
+                    })).ToList()
                 }).ToList()
             })).ToList();
             //trear las preguntas y la respues contestada
@@ -104,8 +112,17 @@ namespace preguntados_ppodgaiz.Models.Dominio
 
         public Guid getRespuestaCorrecta(Guid preguntaId)
         {
-            var correcta = Preguntas.SelectMany(p => p.Respuestas.Where(r => r.EsCorrecta)).FirstOrDefault().Id;
+            var correcta = Preguntas.Where(r => r.Id == preguntaId).SelectMany(p => p.Respuestas.Where(r => r.EsCorrecta)).FirstOrDefault().Id;
             return correcta;
+        }
+
+        public List<RespuestaDto> GetRespuestasPorPregunta(Guid preguntaId)
+        {
+            List<RespuestaDto> respuestas = new List<RespuestaDto>();
+            respuestas = Preguntas.Where(p => p.Id == preguntaId).FirstOrDefault().Respuestas.Select(s => new RespuestaDto() {
+                
+            }).ToList();
+            return respuestas;
         }
     }
 }

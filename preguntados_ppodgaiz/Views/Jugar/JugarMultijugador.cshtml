@@ -59,6 +59,8 @@
                 $('#' + id).addClass("btn-danger")
                 $('#' + correcta).addClass("btn-success")
             }
+            setTimeout(
+                Redirigir, 3000);
         }
 
         function Redirigir() {
@@ -82,13 +84,34 @@
                 url: '@Url.Action("SaveMultijugador","Jugar")',
                 data: { model: respuesta },
                 success: function (data) {
-                    mostrarResultados(data);
-                    setTimeout(
-                        Redirigir, 3000);
+                    if (data.final) {
+                        VerificarFinal();
+                    } else {
+                       
+                        mostrarResultados(data.idCorrecta);
+                    }
                 }
             });
         })
 
+
+        function VerificarFinal() {
+            window.setInterval(function () {
+            $.ajax({
+                type: "GET",
+                data: {idJuego : '@Model.IdJuego'},
+                url: '@Url.Action("VerificarFinal", "Jugar")',
+                success: function (data) {
+                    if (data == true) {
+                        window.location.href = '@Url.Action("ResultadosMultijugador", "Jugar")?idJuego=' + '@Model.IdJuego' ;
+                    } else {
+                        console.log("sa");
+                    }
+                }
+            });
+
+        }, 4000);
+        }
         @*function mostrarResultados(id) {
             if (id == @Model.Respuestas.Where(r => r.EsCorrecta).FirstOrDefault().Id) {
                 $(this).AddClass('btn-Success');

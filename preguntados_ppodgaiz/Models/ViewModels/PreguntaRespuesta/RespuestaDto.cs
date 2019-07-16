@@ -14,5 +14,6 @@ namespace preguntados_ppodgaiz.Models.ViewModels.PreguntaRespuesta
         public bool RespuestaCorrecta { get; set; }
         public Guid RespuestaCorrectaId { get; set; }
         public Guid RespuestaSeleccionada { get; set; }
+        public List<RespuestaJuegoViewModel> Respuestas { get; set; }
     }
 }

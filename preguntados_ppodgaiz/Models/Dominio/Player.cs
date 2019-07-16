@@ -12,25 +12,32 @@ namespace preguntados_ppodgaiz.Models.Dominio
         public bool Jugando { get; set; } = false;
         public bool Owner { get; set; }
         public Usuario Usuario { get; set; }
-        public int NroPreguntaRespondida { get; set; }
+        public int NroPreguntaRespondida { get; set; } = 0;
         public List<PreguntaRespuestaDto> PreguntaRespuestas { get; set; }
 
+        public Player()
+        {
 
+            PreguntaRespuestas = new List<PreguntaRespuestaDto>();
+        }
         public void setUsuario(Usuario usuario)
         {
+
             Usuario = usuario;
         }
 
-        public void SetRespuestaSeleccionada(Guid idPregunta ,Guid idRespuesta, Guid respuestaSeleccionadaId)
+        public PreguntaRespuestaDto SetRespuestaSeleccionada(Guid idPregunta ,Guid idRespuesta, Guid respuestaSeleccionadaId, Guid idRespuestaCorrecta, string TextoPregunta)
         {
-            var respuesta = new PreguntaRespuestaRespondidaPlayerViewModel() {
+            PreguntaRespuestaDto preguntaRespuestaDto = new PreguntaRespuestaDto() {
+                RespuestaSeleccionada =respuestaSeleccionadaId,
+                RespuestaCorrecta = idRespuestaCorrecta,
                 IdPregunta = idPregunta,
-                IdRespuesta =  idRespuesta,
-                IdRespuestaSeleccionada = respuestaSeleccionadaId
+                TextoPregunta = TextoPregunta
+                
             };
-           // PreguntaRespuestas.Add(respuesta);
+            PreguntaRespuestas.Add(preguntaRespuestaDto);
 
-
+            return preguntaRespuestaDto;
         }
     }
 }

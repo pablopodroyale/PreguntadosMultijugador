@@ -5,10 +5,10 @@ using System.Web;
 
 namespace preguntados_ppodgaiz.Models.ViewModels.Resultado
 {
-    public class RespuestaResultadoViewModel
+    public class RespuestaResultadoMultijugadorViewModel
     {
         public Guid IdRespuesta { get; set; }
         public string TextoRespuesta { get; set; }
-        public Guid RespuestaSeleccionada { get; set; }
+        public bool EsCorrecta { get; set; }
     }
 }
