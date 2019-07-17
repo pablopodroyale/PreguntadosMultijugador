@@ -15,14 +15,12 @@ namespace preguntados_ppodgaiz.Controllers
     [Authorize]
     public class LobbyController : Controller
     {
-        private bool empezar;
         private ApplicationDbContext db;
         private List<Juego> juegos;
 
         public LobbyController()
         {
             db = new ApplicationDbContext();
-            empezar = false;
             juegos = new List<Juego>();
         }
         public ActionResult Ingresar()
@@ -31,17 +29,6 @@ namespace preguntados_ppodgaiz.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public ActionResult Ingresar(PlayerViewModel model)
-        //{
-        //    Player player = new Player() {
-        //        Nombre = model.Nombre,
-        //        Id = new Guid(),
-
-        //    };
-        //    PlaySingleton.GetInstance.AgregarJugador(player);
-        //    return RedirectToAction("Ingresar");
-        //}
         public ActionResult VerificarEstado(Guid idPlayer)
         {
             Guid idJuego = PlaySingleton.GetInstance.GetIdJuego(idPlayer);
@@ -61,8 +48,12 @@ namespace preguntados_ppodgaiz.Controllers
         {
             Player player = new Player();
             player.setUsuario(usuario);
-            PlaySingleton.GetInstance.AgregarJugador(player);
-            return View(player);
+            var playerExistente  = PlaySingleton.GetInstance.AgregarJugador(player);
+            if (playerExistente != null)
+            {
+                return View("Lobby", playerExistente);
+            }
+            return View("Lobby",player);
         }
 
         public ActionResult GetPlayers(Guid idPlayer)
@@ -88,6 +79,15 @@ namespace preguntados_ppodgaiz.Controllers
             var preguntas = repoPregunta.TraerTodos().Where(p => p.Categoria.Id == categoria.Id).Take(4).ToList();
             PlaySingleton.GetInstance.CrearJuego(categoria,idPlayer, preguntas);
             return Json("ok", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult VolverAJugar(string idJuego)
+        {
+            var userName = User.Identity.Name;
+            var Usuario = new Repositorio<Usuario>(db).TraerTodos().Where(u => u.Nombre == userName).FirstOrDefault();
+            //var juego = PlaySingleton.GetInstance.GetJuego(new Guid(idJuego));
+            PlaySingleton.GetInstance.ResetearSingleton(idJuego);
+            return RedirectToAction("Lobby",Usuario);
         }
     }
 }

@@ -70,7 +70,7 @@
                         <h3 class="col-2 offset-4"><strong>Jugadores </strong> </h3>
                     </div>
                     <div class="form-group row">
-                        <div id="idJugadores" class="col-10 offset-1" style="border-style:inset;overflow:auto;width:100%">
+                        <div id="idJugadores" class="col-10 offset-1 waitMe_body" style="border-style:inset;overflow:auto;width:100%">
                             <table class="table table-responsive table-striped table-bordered col-12" style="width:500px;height:300px;padding:0px">
                                 <thead>
                                     <tr>
@@ -147,6 +147,7 @@
                                 $("#idBtnGuardarCategoria").prop('disabled', true);
                                 $("#idCrearJuego").prop('disabled', true);
                                 $("#idEmpezar").prop('disabled', false);
+                                $("#idJugadores").waitMe("hide");
                                 //$(".btnAgregarJugador").prop('disabled',false);
                             }
                         });
@@ -175,6 +176,20 @@
         
         });
 
+
+        $('#idJugadores').waitMe({
+            effect : 'stretch',
+            text : 'Esperando partida',
+            bg : 'rgba(255, 255, 255, 0.7)',
+            color : '#000',
+            maxSize : '',
+            waitTime : -1,
+            textPos : 'vertical',
+            fontSize : '',
+            source : '',
+            onClose : function() {}
+        });
+
         $("#idEmpezar").click(function () {
 
             $.ajax({
@@ -195,9 +210,21 @@
                 url: '@Url.Action("VerificarEstado", "Lobby")',
                 success: function (data) {
                     if (data.estado == "encola") {
-                        console.log("encola");
+                       $('#idBody').waitMe({
+                            effect : 'roundBounce',
+                            text : '',
+                            bg : 'rgba(255, 255, 255, 0.7)',
+                            color : '#000',
+                            maxSize : '',
+                            waitTime : -1,
+                            textPos : 'vertical',
+                            fontSize : '',
+                            source : '',
+                            onClose : function() {}
+                        });
                     }
                     if (data.estado == "jugando") {
+                        $('#idBody').waitMe("hide");
                         window.location.href = '@Url.Action("JugarMultijugador","Jugar")?idPlayer=' + '@Model.Usuario.Id' + '&idJuego=' + data.idJuego ;
                     }
                 }

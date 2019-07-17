@@ -11,7 +11,7 @@ namespace preguntados_ppodgaiz.Models.ViewModels.Resultado
         public string Categoria { get; set; }
         public List<ResultadoPorJugadorViewModel> ResultadosPorJugador { get; set; }
         public string Score { get; set; }
-
+        public Guid IdJuego { get; set; }
         public ResultadoMultijugadorViewModel()
         {
             

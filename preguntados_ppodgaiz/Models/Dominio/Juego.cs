@@ -12,7 +12,7 @@ namespace preguntados_ppodgaiz.Models.Dominio
         public Categoria Categoria { get; set; }
         public List<Player> Players { get; set; }
         public List<Pregunta> Preguntas { get; set; }
-        public Guid Id { get; set; }
+        //public Guid Id { get; set; }
         public bool EnJuego { get; set; } = false;
         public int CantidadPreguntas { get; set; }
         public Juego()
@@ -90,6 +90,7 @@ namespace preguntados_ppodgaiz.Models.Dominio
         {
             ResultadoMultijugadorViewModel model = new ResultadoMultijugadorViewModel();
             model.Categoria = Categoria.Nombre;
+            model.IdJuego = Id;
             var resultadosPorJugador = Players.Select(p => new ResultadoPorJugadorViewModel() {
                 IdPlayer = p.Usuario.Id,
                 NickPlayer = p.Usuario.Nombre,
@@ -109,6 +110,11 @@ namespace preguntados_ppodgaiz.Models.Dominio
             //trear las preguntas y la respues contestada
 
             return model;
+        }
+
+        public void ResetearJuego()
+        {
+            
         }
 
         public Guid getRespuestaCorrecta(Guid preguntaId)

@@ -12,11 +12,15 @@
 
     <!-- CONTENT -->
     <div class="page-content-wrapper">
+
         <!-- HEADER -->
         <div class="page-header light-fg row no-gutters align-items-center justify-content-between">
             <!-- APP TITLE -->
             <div class="col-12 col-sm">
+
+
                 <h4 class="col-md-6 offset-4">Resultados Categoria: @Model.Categoria</h4>
+                <button id="idBtnVolverAJugar" class="btn bg-deep-orange text-white btn-block col-9 offset-1">Volver a Jugar</button>
             </div>
             <button type="button" class="btn btn-icon">
                 <i class="icon icon-magnify"></i>
@@ -38,7 +42,7 @@
                                     <h6 class="card-text a-align-center">Respuesta  @cont</h6>
                                     if (respuesta.IdRespuesta == pregunta.RespuestaSeleccionada && respuesta.EsCorrecta)
                                     {
-                                         score = score + 1; 
+                                        score = score + 1;
                                         <button class="btn btn-lg btn-block btn-success" id="@respuesta.IdRespuesta">@respuesta.TextoRespuesta</button>
                                     }
                                     else if (respuesta.IdRespuesta == pregunta.RespuestaSeleccionada && !respuesta.EsCorrecta)
@@ -49,12 +53,12 @@
                                     }
                                     else if (respuesta.IdRespuesta == pregunta.RespuestaCorrecta)
                                     {
-                                       
+
                                         <button class="btn btn-lg btn-block btn-success" id="@respuesta.IdRespuesta">@respuesta.TextoRespuesta</button>
                                     }
                                     else
                                     {
-                                        
+
                                         <button class="btn btn-lg btn-block btn-default" id="@respuesta.IdRespuesta">@respuesta.TextoRespuesta</button>
                                     }
                                     cont = cont + 1;
@@ -62,7 +66,7 @@
                                 @{
                                     cont = 1;
 
-                                } 
+                                }
                             </div>
                         </div>
                     }
@@ -77,12 +81,31 @@
                     </div>
                 </div>
             </div>
+
         }
+
         <!-- / HEADER -->
     </div>
+
+
 </div>
 
+
 <script>
+
+    $("#idBtnVolverAJugar").click(function () {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("VolverAJugar","Lobby")',
+            data: {
+                idJuego: '@Model.IdJuego'
+            },
+            success: function (data) {
+
+            }
+        });
+    });
+
     @*$(document).ready(function () {
         window.setInterval(function () {
             $.ajax({

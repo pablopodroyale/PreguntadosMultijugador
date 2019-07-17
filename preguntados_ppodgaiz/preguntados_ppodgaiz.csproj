@@ -323,6 +323,7 @@
     <Content Include="assets\Binit\css\diagnotico.min.css" />
     <Content Include="assets\Binit\css\Estadisticas.css" />
     <Content Include="assets\Binit\css\main.css" />
+    <Content Include="assets\Binit\css\waitMe.min.css" />
     <Content Include="assets\Binit\fuse-html\fuse-html.min.css" />
     <Content Include="assets\Binit\fuse-html\fuse-html.min.js" />
     <Content Include="assets\Binit\fuse-html\src\fuse-aside\fuse-aside.js" />
@@ -439,6 +440,7 @@
     <Content Include="assets\Binit\js\diagnostico.js" />
     <Content Include="assets\Binit\js\main.js" />
     <Content Include="assets\Binit\js\swal.min.js" />
+    <Content Include="assets\Binit\js\waitMe.min.js" />
     <Content Include="assets\Binit\js\Winwheel.min.js" />
     <Content Include="assets\Binit\node_modules\animate.css\animate.css" />
     <Content Include="assets\Binit\node_modules\animate.css\animate.min.css" />

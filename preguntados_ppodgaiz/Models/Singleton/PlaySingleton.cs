@@ -33,12 +33,15 @@ namespace preguntados_ppodgaiz.Models.Singleton
             }
         }
 
-        public void AgregarJugador(Player player)
+        public Player AgregarJugador(Player player)
         {
+
             if (!players.Any(p => p.Usuario.Nombre == player.Usuario.Nombre))
             {
                 players.Add(player);
+                return null;
             }
+            return players.Where(p => p.Usuario.Nombre == player.Usuario.Nombre).FirstOrDefault();
         }
 
         public ICollection<Player> GetPlayers()
@@ -114,6 +117,27 @@ namespace preguntados_ppodgaiz.Models.Singleton
             }
             return juego.Id;
 
+        }
+
+        public void ResetearSingleton(string idJuego)
+        {
+            var id = new Guid(idJuego);
+            var juego = juegos.Where(j => j.Id == id).FirstOrDefault();
+            if (juego != null)
+            {
+                juego.Players.ToList().ForEach(p => {
+                    p.EnCola = false;
+                    p.Jugando = false;
+                    p.Owner = false;
+                    p.PreguntaRespuestas = new List<ViewModels.PreguntaRespuesta.PreguntaRespuestaDto>();
+                    p.NroPreguntaRespondida = 0;
+                    
+                });
+
+                juegos.Remove(juego);
+                juego = null;
+            }
+            
         }
 
         public Juego GetJuego(Guid idJuego)

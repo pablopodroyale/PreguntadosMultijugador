@@ -151,9 +151,20 @@ namespace preguntados_ppodgaiz.Controllers
 
         public ActionResult ResultadosMultijugador(Guid idJuego)
         {
-            var juego = PlaySingleton.GetInstance.GetJuego(idJuego);
-            var resultados = juego.GetResultados();
-            return View(resultados);
+            try
+            {
+                var juego = PlaySingleton.GetInstance.GetJuego(idJuego);
+                var resultados = juego.GetResultados();
+                return View(resultados);
+            }
+            catch (Exception)
+            {
+
+                RedirectToAction("LogOff", "Account");
+            }
+            return null;
         }
+
+        
     }
 }
